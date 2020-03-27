@@ -1,10 +1,10 @@
-# Synthetic Data Generation for Data Privacy
+# Leveraging GANs to Generate Synthetic Data
 
 # Introduction
 
-There has been a rise in Data breaches across the world. This is of utmost concern and has led to strict data regulation in the pharma industry in the USA. Health Insurance Portability and Accountability Act (HIPPA) was enacted in the united states in 1996 and has been at the forefront of data privacy and it is increasingly important for organizations to make sure they adhere to these requirements and still continue to make advances in the ever-competitive industry.  
+Data breaches have been on the rise across the world, with major attacks in the range of thousands. The healthcare industry is particularly sensitive to this problem as Patient Identifiable Information data is highly sensitive and strictly regulated by the Health Insurance Portability and Accountability Act (HIPPA) of 1996. With increasing data breaches, Healthcare firms need to innovate the way they store and leverage data to wade through regulatory compliance and keep customer data secure.
 
-Optum handles personally identifiable information of over 100 million customers and its at  the forefront of research and development in medicine. But these stricter regulations and inter company data sharing practices is proving to be a hinderance for fast innovation as Data access sharing in the organization can take up to 2 to 3 months.
+Optum handles PII information of over 100 million customers, and leverages the data to innovate research and drive growth in the firm. The strict regulations, notably GDPR and the impending California Consumer Protection Act of 2020, might constrain Optum to limit the way they collect and store data. Current data sharing practices (to ensure de-identification) have resulted in wait times for data access as long as 3 months for analysts. These factors have proved to be hindrances for fast innovation at Optum.
 
 **The key question to answer here is: How can we safely and efficiently share encrypted data that is also useful?**
 
@@ -251,7 +251,7 @@ ctgan.fit(data, discrete_columns)
 
 
 
-## Differentially Private GAN
+## Differentially Private GAN (WIP)
 
 Source: [https://arxiv.org/pdf/1802.06739.pdf](https://arxiv.org/pdf/1802.06739.pdf)
 
@@ -263,9 +263,13 @@ DPGAN focuses on preserving the privacy during the training procedure instead of
 
 The algorithm guarantees that the parameters of discriminator and generator have differential privacy with respect to the sample training points. The algorithm inputs noise e in the generator parameters which enables this privacy, however one needs to perform a grid search over a large range of noise parameter **e** to get best results.
 
-## PATE-GAN
+## PATE-GAN (WIP)
 
-PATE: Ensemble of teacher and students can only access teacher output and not teacher data or parameters because of majority voting. Since it is semi-supervised, it assumes that students have access to public dataset. In PATE-GAN, we can use generated data instead of public dataset. Generative Adversarial Networks (GAN) provide a powerful method for using real data to generate synthetic data but it does not provide any rigorous privacy guarantees. Our method modifies the GAN machinery in a way that does guarantee privacy; 
+Source: [https://arxiv.org/pdf/1906.09338.pdf](https://arxiv.org/pdf/1906.09338.pdf)
+
+Generative Adversarial Networks (GAN) provide a powerful method for using real data to generate synthetic data but it does not provide any rigorous privacy guarantees. PATE GAN modifies the existing GAN algorithm in a way that does guarantee privacy
+
+PATE GAN consists of two generator blocks called student block and teacher block on top of the existing generator block. With traditional privacy techniques, it is possible for the Generator to reconstruct the original data even after adding noise. PATE GAN prevents this by breaking down the generator into three stages. After the generator creates the data and adds noise, there is an ensemble block which factors in majority voting to create the input. After this there is a student block which aggregates the inputs from the teacher blocks and generates the final data.
 
 The synthetic data is (differentially) private with respect to the original data DP-GAN: The key idea is that noise is added to the gradient of the discriminator during training to create differential privacy guarantees. Our method is similar in spirit; during training of the discriminator differentially private training data is used, which results in noisy gradients, however, we use the mechanism introduced in A noticeable difference is that the adversarial training is no longer symmetrical: the teachers are now being trained to improve their loss with respect to G but G is being trained to improve its loss with respect to the student S which in turn is being trained to improve its loss with respect to the teachers.
 
@@ -274,7 +278,7 @@ The synthetic data is (differentially) private with respect to the original data
 
 ![](Images/PATE_GAN_2.png)
 
-## G-PATE
+## G-PATE (WIP)
 Theoretically, the generator in GAN has the potential of generating an universal distribution, which is a superset of the real distribution, so it is not necessary for the student discriminator to be trained on real records. However, such a theoretical bound is loose. In practice, if a generator does generate enough samples from the universal distribution, there would be a convergence issue. On the other hand, when the generator does converge, it no longer covers the universal distribution, so the student generator may fail to learn the real distribution without seeing real records.
 
 It is not necessary to ensure differential privacy for the discriminator in order to train a differentially private generator. As long as we ensure differential privacy on the information flow from the discriminator to the generator, it is sufficient to guarantee the privacy property for the generator. Therefore, instead of focusing on ensuring differential privacy for the whole GAN framework, we design a novel framework to guarantee that all information flowed from the discriminator to the generator satisfies differential privacy.

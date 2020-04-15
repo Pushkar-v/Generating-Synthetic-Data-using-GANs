@@ -1,5 +1,9 @@
 # Leveraging GANs to Generate Tabular Synthetic Data
 
+[TOC]
+
+
+
 # Introduction
 
 Data breaches have been on the rise across the world, with major attacks in the range of thousands. The healthcare industry is particularly sensitive to this problem as Patient Identifiable Information data is highly sensitive and strictly regulated by the Health Insurance Portability and Accountability Act (HIPPA) of 1996. With increasing data breaches, Healthcare firms need to innovate the way they store and leverage data to wade through regulatory compliance and keep customer data secure.
@@ -8,13 +12,13 @@ Optum handles PII information of over 100 million customers, and leverages the d
 
 **The key question to answer here is: How can we safely and efficiently share encrypted data that is also useful?**
 
-### Statistical Similarity
+## **Statistical Similarity**
 
 The team has to make sure that the generated datasets are statistically similar to the original data to preserve its utility. The generated dataset should have minimal loss when compared to the original data. For both categorical and continuous value columns, the algorithms should be robust enough to not only preserve the multimodal distribution for individual columns, but also the joint distribution of the columns. the algorithm should detect intricate relationships between columns and preserve them in the generated synthetic data working equally well on balanced as well as imbalanced datasets. 
 
 We will be evaluating the datasets as follows: 
 
-#### Descriptive Statistics
+**Descriptive Statistics**
 
 + Central Tendencies (Mean, Median and Mode)
 + Standard Deviation
@@ -22,13 +26,13 @@ We will be evaluating the datasets as follows:
 + Kurtosis
 + Unique Values
 
-#### Principle Component Analysis
+**Principle Component Analysis**
 
 Principal Component Analysis or PCA is a linear feature extraction technique. It performs a linear mapping of the data to a lower-dimensional space in such a way that the variance of the data in the low-dimensional representation is maximized. It does so by calculating the eigenvectors from the covariance matrix. The eigenvectors that correspond to the largest eigenvalues (the principal components) are used to reconstruct a significant fraction of the variance of the original data. 
 
 In simpler terms, PCA combines your input features in a specific way that you can drop the least important feature while still retaining the most valuable parts of all of the features. As an added benefit, each of the new features or components created after PCA are all independent of one another.
 
-#### **t-Distributed Stochastic Neighbor Embedding (t-SNE)**
+**t-Distributed Stochastic Neighbor Embedding (t-SNE)**
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE) is a non-linear technique for dimensionality reduction that is particularly well suited for the visualization of high-dimensional datasets. It is extensively applied in image processing, NLP, genomic data and speech processing. To keep things simple, here’s a brief overview of working of t-SNE
 
@@ -42,7 +46,7 @@ In simpler terms, t-Distributed stochastic neighbor embedding (t-SNE) minimizes 
 
 In this way, t-SNE maps the multi-dimensional data to a lower dimensional space and attempts to find patterns in the data by identifying observed clusters based on similarity of data points with multiple features. However, after this process, the input features are no longer identifiable, and you cannot make any inference based only on the output of t-SNE. Hence it is mainly a data exploration and visualization technique.
 
-#### PCA vs t-SNE
+**PCA vs t-SNE**
 
 Although both PCA and t-SNE have their own advantages and disadvantages, some key differences between PCA and t-SNE can be noted as follows:
 
@@ -52,7 +56,7 @@ Although both PCA and t-SNE have their own advantages and disadvantages, some ke
 - Sometimes in t-SNE different runs with the same hyperparameters may produce different results hence multiple plots must be observed before making any assessment with t-SNE, while this is not the case with PCA.
 - Since PCA is a linear algorithm, it will not be able to interpret the complex polynomial relationship between features while t-SNE is made to capture exactly that.
 
-### Model Compatibility
+## **Model Compatibility**
 
 The solution should perform equally good across various machine learning models when compared to the original dataset. For this project, we will be considering three major datasets currently in use across the industry which are namely:
 1. Patient Demographics Data
@@ -74,7 +78,7 @@ Above image gives us a better idea of the overall process we are going to follow
   - *(Inputs required from business on the potential uses of this data)*
 - These datasets will be run through various machine learning algorithms ranging from simple, ensamble to Neural networks to evaluate their performance on holdout data to compare their usefulness in real world usage
 
-### Reidentification Risk
+## **Reidentification Risk**
 
 Along with Statistical similarity and Model compatibility, we need to ensure to minimize reidentification risk for the data points. Current anonymization techniques directly mask user demographics information to protect privacy, but bad actors can still join this data with other databases to identify individuals.  
 
@@ -93,14 +97,16 @@ Data anonymization means directly masking the important demographic and personal
 
    
 
-**Differential Privacy**
+## **Differential Privacy**
+
 Differential privacy is a system for publicly sharing information about a dataset by describing the patterns of groups within the dataset while withholding information about individuals in the dataset. Roughly, an algorithm is differentially private if an observer seeing its output cannot tell if a particular individual's information was used in the computation. Differential privacy is often discussed in the context of identifying individuals whose information may be in a database. Although it does not directly refer to identification and reidentification attacks, differentially private algorithms probably resist such attacks
 
 Although differential privacy is effective, it has a key shortcoming that it cannot perform well on Machine learning models because of the added noise. 
 
 
 
-**Synthetic Data Generation**
+## **Synthetic Data Generation**
+
 This method is the state of the art in reducing the reidentification risk. As we observed earlier, Data anonymization if effective but reduces the utility, Differential privacy adds small noise but has very bad model compatibility. However, Synthetic data, can be tuned to add privacy without losing either the utility, neither exposing privacy of individual data points.  As the  data doesn't represent any real entity, the disclosure of sensitive private data is eliminated. If the information available in the released synthetic data matches with any real entity participated in the original data then it is purely a co-incidence which gives individuals plausible deniability
 
 A synthetic dataset is a repository of data that is generated programmatically. 
@@ -126,7 +132,7 @@ A generative adversarial network (GAN) is a class of machine learning systems in
 
 GANs consist of Two neural networks contest with each other in a game. Given a training set, this technique learns to generate new data with the same statistics as the training set. The two Neural Networks are named Generator and a Discriminator. 
 
-## Working
+## GAN Working Overview
 
 **Generator**
 The generator is a neural network that models a transform function. It takes as input a simple random variable and must return, once trained, a random variable that follows the targeted distribution. The generator randomly feeds actual image and generated images to the Discriminator. The generator starts with Generating random noise and changes its outputs as per the Discriminator. If the Discriminator is successfully able to identify that generate input is fake, then then its weights are adjusted to reduce the error. 
@@ -288,7 +294,72 @@ Compared to PATE-GAN, our approach has two advantages. First, we improve the use
 In addition, we design a gradient aggregator to collect information from teacher discriminators and combine them in a differentially private fashion.
 Unlike PATE-GAN, G-PATE does not require any student discriminator. The teacher discriminators are directly connected to the student generator. The gradient aggregator sanitizes the information flow from the teacher discriminators to the student generator to ensure differential privacy The privacy property is achieved by sanitizing all information propagated from the discriminators to the generator.
 
+
+
+# Use Cases
+
+## Length of Stay in the ICU
+
+## Patient Mortality Prediction
+
+
+
+# Results
+
+## Scalability Tests
+
+### Implementation Overview
+
+
+
+### GAN
+
+### CTGAN
+
+### Future Improvements and Next Steps
+
+## Statistical Similarity
+
+### Implementation Overview
+
+### Length of Stay in the ICU
+
+### Patient Mortality Prediction
+
+### Future Improvements and Next Steps
+
+
+
+## Privacy Risk Module
+
+### Implementation Overview
+
+### Length of Stay in the ICU
+
+### Patient Mortality Prediction
+
+### Future Improvements and Next Steps
+
+## Model Compatibility
+
+### Implementation Overview
+
+### Length of Stay in the ICU
+
+### Patient Mortality Prediction
+
+### Future Improvements and Next Steps
+
+
+
+# Findings and Conclusions
+
+# Appendix
+
+## Codes
+
 ## Sources
+
 https://arxiv.org/pdf/1802.06739.pdf
 https://blog.cryptographyengineering.com/2016/06/15/what-is-differential-privacy/
 https://medium.com/georgian-impact-blog/a-brief-introduction-to-differential-privacy-eacf8722283b

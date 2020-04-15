@@ -352,11 +352,21 @@ Unlike PATE-GAN, G-PATE does not require any student discriminator. The teacher 
 
 
 
-# Findings and Conclusions
+# Ideas for Further Research and Improvements
+
+## Primary keys
+
+## Generating Larger Datasets from Small Samples
+
+## Privacy Tuning
+
+## Modifying TGAN to create a new module
+
+
 
 # Appendix
 
-## Codes
+## Additional Codes
 
 ## Sources
 

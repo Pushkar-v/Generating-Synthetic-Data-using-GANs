@@ -36,7 +36,7 @@ How can you certify that the generated data is as similar and as useful as origi
 
 Optum deals with sensitive healthcare data that has Personal identifiable Information (PII) of 100M+ people and it is expanding every day. The healthcare industry is particularly sensitive as Patient Identifiable Information data is strictly regulated by the Health Insurance Portability and Accountability Act (HIPPA) of 1996. Healthcare firms need to keep customer data secure while leveraging it to innovate research and drive growth in the firm. However, current data sharing practices (to ensure de-identification) have resulted in wait times for data access as long as 3 months. This has proved to be a hindrance to fast innovation at Optum. The need of the hour is to reduce the time for data access and enable innovation while protecting the information of patients. The key question to answer here is:
 
- 
+
 
 ​                                       **"How can we safely and efficiently share healthcare data that is useful?"**
 
@@ -64,7 +64,6 @@ Currently, the field of AI which is being given a lot of importance is Deep Lear
 | Generate image using CNN architecture                    | Can we generate table from relational databases?             |
 | Generate fake images of human faces that looks realistic | Would it balance the trade-off between maintaining utility and privacy of data |
 | Requires high computational infrastructure like GPUs     | How to implement GAN for big data?                           |
-|                                                          |                                                              |
 
 # Methodology
 
@@ -72,11 +71,11 @@ In order to validate the efficacy of GANs to serve our purpose, we propose a met
 
 ![](Images\methodology.png)
 
-## Synthetic Data Generation 
+## Synthetic Data Generation
 
 This method is the state of the art in reducing the reidentification risk. As we observed earlier, Data anonymization if effective but reduces the utility, Differential privacy adds small noise but has very bad model compatibility. However, Synthetic data, can be tuned to add privacy without losing either the utility, neither exposing privacy of individual data points.  As the  data doesn't represent any real entity, the disclosure of sensitive private data is eliminated. If the information available in the released synthetic data matches with any real entity participated in the original data then it is purely a co-incidence which gives individuals plausible deniability
 
-A synthetic dataset is a repository of data that is generated programmatically. 
+A synthetic dataset is a repository of data that is generated programmatically.
 
 - It can be numerical, binary, or categorical (ordinal or non-ordinal),
 - The **number of features and length of the dataset** should be arbitrary
@@ -89,9 +88,9 @@ A synthetic dataset is a repository of data that is generated programmatically.
 
 ## Statistical Similarity
 
-The team has to make sure that the generated datasets are statistically similar to the original data to preserve its utility. The generated dataset should have minimal loss when compared to the original data. For both categorical and continuous value columns, the algorithms should be robust enough to not only preserve the multimodal distribution for individual columns, but also the joint distribution of the columns. the algorithm should detect intricate relationships between columns and preserve them in the generated synthetic data working equally well on balanced as well as imbalanced datasets. 
+The team has to make sure that the generated datasets are statistically similar to the original data to preserve its utility. The generated dataset should have minimal loss when compared to the original data. For both categorical and continuous value columns, the algorithms should be robust enough to not only preserve the multimodal distribution for individual columns, but also the joint distribution of the columns. the algorithm should detect intricate relationships between columns and preserve them in the generated synthetic data working equally well on balanced as well as imbalanced datasets.
 
-We will be evaluating the datasets as follows: 
+We will be evaluating the datasets as follows:
 
 **Descriptive Statistics**
 
@@ -103,7 +102,7 @@ We will be evaluating the datasets as follows:
 
 **Principle Component Analysis**
 
-Principal Component Analysis or PCA is a linear feature extraction technique. It performs a linear mapping of the data to a lower-dimensional space in such a way that the variance of the data in the low-dimensional representation is maximized. It does so by calculating the eigenvectors from the covariance matrix. The eigenvectors that correspond to the largest eigenvalues (the principal components) are used to reconstruct a significant fraction of the variance of the original data. 
+Principal Component Analysis or PCA is a linear feature extraction technique. It performs a linear mapping of the data to a lower-dimensional space in such a way that the variance of the data in the low-dimensional representation is maximized. It does so by calculating the eigenvectors from the covariance matrix. The eigenvectors that correspond to the largest eigenvalues (the principal components) are used to reconstruct a significant fraction of the variance of the original data.
 
 In simpler terms, PCA combines your input features in a specific way that you can drop the least important feature while still retaining the most valuable parts of all of the features. As an added benefit, each of the new features or components created after PCA are all independent of one another.
 
@@ -131,7 +130,7 @@ Although both PCA and t-SNE have their own advantages and disadvantages, some ke
 - Sometimes in t-SNE different runs with the same hyperparameters may produce different results hence multiple plots must be observed before making any assessment with t-SNE, while this is not the case with PCA.
 - Since PCA is a linear algorithm, it will not be able to interpret the complex polynomial relationship between features while t-SNE is made to capture exactly that.
 
-Below Diagram provides a more detailed approach to the methodology outlined above. 
+Below Diagram provides a more detailed approach to the methodology outlined above.
 
 ![Blank Diagram](Images/diagram.png)
 
@@ -141,32 +140,32 @@ Below Diagram provides a more detailed approach to the methodology outlined abov
 
 1. #### Overview
 
-   The synthetic data generated by GAN algorithms can be shared with internal business, academic researchers and third parties to tackle business problems. These stakeholders can then use machine learning algorithms on synthetic data to perform future predictions and create strategies as per their needs. In order to serve these needs, the synthetic data generated should have the same utlity as the original data and provide fairly similar prediction if not exactly same. Thus, it's crucial to evaluate if models generated using synthetic data are compatibile with original data? In this module, we will build different machine learning algorithms on 2 different use cases; a) Length of Stay b) Mortality prediction. The description of use cases can be found under <b> Use cases</b> section. These use cases are selected to evaluate both regression and classification models. 
+   The synthetic data generated by GAN algorithms can be shared with internal business, academic researchers and third parties to tackle business problems. These stakeholders can then use machine learning algorithms on synthetic data to perform future predictions and create strategies as per their needs. In order to serve these needs, the synthetic data generated should have the same utlity as the original data and provide fairly similar prediction if not exactly same. Thus, it's crucial to evaluate if models generated using synthetic data are compatibile with original data? In this module, we will build different machine learning algorithms on 2 different use cases; a) Length of Stay b) Mortality prediction. The description of use cases can be found under <b> Use cases</b> section. These use cases are selected to evaluate both regression and classification models.
 
    #### Methodology
 
    1. <b> One hot encoding (optional): </b> In case there are any categorical variables required for prediction, we first need to perform one hot encoding. This is done to make sure we don't miss out any categories in test dataset after splitting data into train and test. Example, in case of ethnicity column, there are multiple types like White, Hispanic, Asian, African etc. If we split data into train and test before performing one hot encoding, then there are chances that no Hispanic is present in test data and only present in train data. This can lead to problems while evaluating accuracy of models.
-   2. <b> Split data into train and test: </b> The analytical data set generated as per the use cases is first split into 2 parts i.e. train and test in the ratio of 80:20. While splitting data set, stratified sampling is performed using the dependent / target variable, duration of stay in use case 1 (length of stay) and expiry flag in use case 2 (mortality prediction). 
+   2. <b> Split data into train and test: </b> The analytical data set generated as per the use cases is first split into 2 parts i.e. train and test in the ratio of 80:20. While splitting data set, stratified sampling is performed using the dependent / target variable, duration of stay in use case 1 (length of stay) and expiry flag in use case 2 (mortality prediction).
    3. <b> Generate Synthetic Data: </b> Train dataset is used as an input to GAN algorithms to generate synthetic data of same name of rows. We generated synthetic data using TGAN and CTGAN which was then used to build models.
    4. <b> Standarize variables (optional): </b> Numerical variables are present on different scales and some variables cna influence the prediction results more than others. Example, Age and Salary are both numeric variables however, range of salary is much bigger than range of age and thus can impact the prediction results. In order to account for this, we standardized all variables with mean 0 and standard deviation 1. This is same as z-score formula.
    5. <b> Model building: </b> Using original train data and synthetic train data (generated by GAN algorithm). For use case 1 (Length of Stay), we used regression algorithms like Regression Tree, Random Forest, XGBoost, Support Vector Machine and K-Nearest Neighbor. For use case 2 (Mortality Prediction), we used classification algrotihms like Logistic Regression, XGBoost and Neural Network. Variety in use cases allows us to evaluate performance of synthetic data on various machine learning algorithms. In classification, due to imbalanced class of target variable, we used parameters within algorithms to assign appropriate weightage to each class.
    6. <b> Hyperparameter tuning: </b> 5-fold cross validation is performed along with grid search to perform hyperparameter tuning and selected best combination to improve the models. The metrics to evaluate can be different for different use case example, for mortality prediction, focus is on recall because we want to make sure we predict the patients who are going to die and take actions to save lives.
-   7. <b> Prediction: </b> Finally, test data is used for prediction based on models generated and range of metrics were reported to compare performance. For classification, metrics like accuracy, precision, recall, f1-score and AUC-ROC. For regression, metrics like Mean Squared Error, Root Mean Squared Error, Mean Absolute Error, Mean Absolute Percentage Error. 
+   7. <b> Prediction: </b> Finally, test data is used for prediction based on models generated and range of metrics were reported to compare performance. For classification, metrics like accuracy, precision, recall, f1-score and AUC-ROC. For regression, metrics like Mean Squared Error, Root Mean Squared Error, Mean Absolute Error, Mean Absolute Percentage Error.
 
 <img src="Images\model compatibility.png" style="zoom:70%;" />
 
 
 
-Above image gives us a better idea of the overall process we are going to follow here. 
+Above image gives us a better idea of the overall process we are going to follow here.
 
-- With the existing data Sources, the team will formulate analytical datasets common use cases with the data such as 
+- With the existing data Sources, the team will formulate analytical datasets common use cases with the data such as
   - Predicting length of stay in the ICU
   - Predicting Hospitality Mortality Rate
 - These datasets will be run through various machine learning algorithms ranging from simple, ensemble to Neural networks to evaluate their performance on holdout data to compare their usefulness in real world usage
 
 ## Reidentification Risk
 
-Along with Statistical similarity and Model compatibility, we need to ensure to minimize reidentification risk for the data points. Current anonymization techniques directly mask user demographics information to protect privacy, but bad actors can still join this data with other databases to identify individuals.  
+Along with Statistical similarity and Model compatibility, we need to ensure to minimize reidentification risk for the data points. Current anonymization techniques directly mask user demographics information to protect privacy, but bad actors can still join this data with other databases to identify individuals.
 
 Original data has the best utility but as we mask more and more demographics information for privacy and regulatory reasons, the information provided by the dataset decreases. This in turn slows down research and development which could've potentially saved lives.
 
@@ -181,7 +180,7 @@ Data anonymization means directly masking the important demographic and personal
 
 3. **Encryption:** For the most security, data anonymization isn’t meant to be able to be reversed, but some people and organizations still use encryption as their means of anonymization. Encryption uses technology to render sensitive information as unreadable or unintelligible and can only be read after application of a decryption key, which must be kept separate from the encrypted files. Because there is a decryption key at all, however, there is a higher risk of potentially exposing or accessing sensitive information.
 
-   
+
 
 ## Privacy Risk
 
@@ -327,15 +326,15 @@ A generative adversarial network (GAN) is a class of machine learning systems in
 
 ![](Images/GANs.png)
 
-GANs consist of Two neural networks contest with each other in a game. Given a training set, this technique learns to generate new data with the same statistics as the training set. The two Neural Networks are named Generator and a Discriminator. 
+GANs consist of Two neural networks contest with each other in a game. Given a training set, this technique learns to generate new data with the same statistics as the training set. The two Neural Networks are named Generator and a Discriminator.
 
 ## GAN Working Overview
 
 **Generator**
-The generator is a neural network that models a transform function. It takes as input a simple random variable and must return, once trained, a random variable that follows the targeted distribution. The generator randomly feeds actual image and generated images to the Discriminator. The generator starts with Generating random noise and changes its outputs as per the Discriminator. If the Discriminator is successfully able to identify that generate input is fake, then then its weights are adjusted to reduce the error. 
+The generator is a neural network that models a transform function. It takes as input a simple random variable and must return, once trained, a random variable that follows the targeted distribution. The generator randomly feeds actual image and generated images to the Discriminator. The generator starts with Generating random noise and changes its outputs as per the Discriminator. If the Discriminator is successfully able to identify that generate input is fake, then then its weights are adjusted to reduce the error.
 
 **Discriminator**
-The Discriminators job is to determine if the data fed by the generator is real or fake. The discriminator is first trained on real data, so that it can identify it to acceptable accuracy. If the Discriminator is not trained properly, then it in turn will not be accurately able to identify fake images thus poorly training the Generator. 
+The Discriminators job is to determine if the data fed by the generator is real or fake. The discriminator is first trained on real data, so that it can identify it to acceptable accuracy. If the Discriminator is not trained properly, then it in turn will not be accurately able to identify fake images thus poorly training the Generator.
 
 This is continued for multiple iterations till the discriminator can identify the real/fake images purely by chance only.
 
@@ -345,11 +344,11 @@ This is continued for multiple iterations till the discriminator can identify th
   Now lets see how GANs algorithm works internally.
 
 - - The generator randomly feeds real data mixed with generated fake data for the discriminator
-  - To begin, in first few iterations, the generator produces random noise which the discriminator is very good at detecting that the produced image is fake. 
+  - To begin, in first few iterations, the generator produces random noise which the discriminator is very good at detecting that the produced image is fake.
   - Every iteration, the discriminator catches a generated image as fake, the generator readjusts its weights to improve itself. much like the Gradient Descent algorithm
-  - Over time, after multiple iterations, the generator becomes very good at producing images which can now fool the discriminator and pass as real ones. 
+  - Over time, after multiple iterations, the generator becomes very good at producing images which can now fool the discriminator and pass as real ones.
   - Now, its discriminators turn to improve its detection algorithm by adjusting its network weights.
-  - This game continues till a point where the discriminator is unable to distinguish a real image from      fake and can only guess by chance. 
+  - This game continues till a point where the discriminator is unable to distinguish a real image from      fake and can only guess by chance.
 
 
 
@@ -377,12 +376,12 @@ For a table containing discrete and continuous random variables, They follow som
 **Numerical Variables**<br>
 For the model to learn the data effectively, a reversible transformation is applied. The a numerical variables are converted into a scalar in the range (1, 1) and a multinomial distribution, and convert a discrete variable into a multinomial distribution.
 
-Often, numerical variables in tabular datasets follows multimodal distribution. [Gaussian Kernal density estimation](https://jakevdp.github.io/PythonDataScienceHandbook/05.13-kernel-density-estimation.html) is used to estimate these number of noes in the continuous variable. To sample values from these, a [gaussian mixture model](https://scikit-learn.org/stable/modules/mixture.html) is used. 
+Often, numerical variables in tabular datasets follows multimodal distribution. [Gaussian Kernal density estimation](https://jakevdp.github.io/PythonDataScienceHandbook/05.13-kernel-density-estimation.html) is used to estimate these number of noes in the continuous variable. To sample values from these, a [gaussian mixture model](https://scikit-learn.org/stable/modules/mixture.html) is used.
 
 **Categorical Variables** - Improvement needed <br>
 categorical variables are directly converted to to one-hot-encoding representation and add noise to binary variables
 
-In TGAN, the the discriminator D tries to distinguish whether the data is from the real distribution, while the generator G generates synthetic data and tries to fool the discriminator. the algorithm uses a Long Short Term Memory(LSTM) as generator and a Multi Layer Perceptron (MLP) as a discriminator. 
+In TGAN, the the discriminator D tries to distinguish whether the data is from the real distribution, while the generator G generates synthetic data and tries to fool the discriminator. the algorithm uses a Long Short Term Memory(LSTM) as generator and a Multi Layer Perceptron (MLP) as a discriminator.
 
 ### Implementation
 
@@ -458,7 +457,7 @@ ctgan.fit(data, discrete_columns)
 
 Source: [https://arxiv.org/pdf/1802.06739.pdf](https://arxiv.org/pdf/1802.06739.pdf)
 
-One common issue in above proposed methodologies in GANs is that the density of the learned generative distribution could concentrate on the training data points, meaning that they can easily remember training samples due to the high model complexity of deep networks. This becomes a major concern when GANs are applied to private or sensitive data such as patient medical records, and the concentration of distribution may divulge critical patient information. Differentially Private GANs is achieved by adding carefully designed noise to gradients during the learning procedure. 
+One common issue in above proposed methodologies in GANs is that the density of the learned generative distribution could concentrate on the training data points, meaning that they can easily remember training samples due to the high model complexity of deep networks. This becomes a major concern when GANs are applied to private or sensitive data such as patient medical records, and the concentration of distribution may divulge critical patient information. Differentially Private GANs is achieved by adding carefully designed noise to gradients during the learning procedure.
 
 DPGAN focuses on preserving the privacy during the training procedure instead of adding noise on the final parameters directly, which usually suffers from low utility.  Noise is added to the gradient of the Wasserstein distance with respect to the training data.
 
@@ -486,7 +485,7 @@ Theoretically, the generator in GAN has the potential of generating an universal
 
 It is not necessary to ensure differential privacy for the discriminator in order to train a differentially private generator. As long as we ensure differential privacy on the information flow from the discriminator to the generator, it is sufficient to guarantee the privacy property for the generator. Therefore, instead of focusing on ensuring differential privacy for the whole GAN framework, we design a novel framework to guarantee that all information flowed from the discriminator to the generator satisfies differential privacy.
 
-Compared to PATE-GAN, our approach has two advantages. First, we improve the use of privacy budget by applying it to the part of the model that actually needs to be released for data generation. Second, our discriminator can be trained on real data because itself does not need to satisfy differential privacy. The teacher discriminators do not need to be published, so they can be trained with non-private algorithms. 
+Compared to PATE-GAN, our approach has two advantages. First, we improve the use of privacy budget by applying it to the part of the model that actually needs to be released for data generation. Second, our discriminator can be trained on real data because itself does not need to satisfy differential privacy. The teacher discriminators do not need to be published, so they can be trained with non-private algorithms.
 
 In addition, we design a gradient aggregator to collect information from teacher discriminators and combine them in a differentially private fashion.
 Unlike PATE-GAN, G-PATE does not require any student discriminator. The teacher discriminators are directly connected to the student generator. The gradient aggregator sanitizes the information flow from the teacher discriminators to the student generator to ensure differential privacy The privacy property is achieved by sanitizing all information propagated from the discriminators to the generator.
@@ -522,7 +521,7 @@ Use case: Out of variety of possible use cases from MIMIC III dataset we focus o
 
 To build this use case we focus on primarily 4 tables.
 
-1. <b> Patients:</b> Every unique patient in the database (defines SUBJECT_ID) 
+1. <b> Patients:</b> Every unique patient in the database (defines SUBJECT_ID)
    <b> Columns like:</b> SUBJECT_ID, GENDER (count of rows: 46520 count of columns: 7)
 2. <b> Admissions:</b> Every unique hospitalization for each patient in the database (defines HADM_ID)
    <b> Columns like:</b> SUBJECT_ID, HADM_ID, HOSPITAL_EXPIRE_FLAG, MARITAL_STATUS, ETHNICITY, ADMISSION_TYPE (count of rows: 58976 count of columns: 18 )
@@ -539,7 +538,7 @@ To build this use case we focus on primarily 4 tables.
 4. <b> Pivot up diagnosis dataset: </b> After the mapping the disease categories using ICD-9 codes, the datset is pivoted up at the level of the 18 disease categories and the total count of diagnosis is being populated across 'final_id'
 5. <b> Merge pivoted diagnosis datset to the main dataset: </b> Finally, the above generated dataset is then merged to the main dataset using the 'final_id' as the key.
 
-Note: 6984 ICD-9 codes: The diagnosis dataset contains unique International Classification of Disease (ICD-9) codes                                                                            
+Note: 6984 ICD-9 codes: The diagnosis dataset contains unique International Classification of Disease (ICD-9) codes
       18 primary categories: We consider categories of conditions for the predictive modeling
 Finally only the relevant columns required for the analysis are selected and we use the dataset for the synthetic data generation.
 The final data has 116354 rows and 27 columns.
@@ -553,30 +552,30 @@ The final data has 116354 rows and 27 columns.
 
 - <b> Predictor variables:</b> 18 columns of different diagnosis category are used as predictor varibales.
       These 18 categories are:
-      "certain conditions originating in the perinatal period"                      
+      "certain conditions originating in the perinatal period"
       "complications of pregnancy, childbirth, and the puerperium",
-      "congenital anomalies",                                                
-      "diseases of the blood and blood-forming organs",                       
-      "diseases of the circulatory system",                                   
-      "diseases of the digestive system",                                     
-      "diseases of the genitourinary system",                                 
-      "diseases of the musculoskeletal system and connective tissue",         
-      "diseases of the nervous system",                                       
-      "diseases of the respiratory system",                                   
-      "diseases of the sense organs",                                         
-      "diseases of the skin and subcutaneous tissue",                         
-      "endocrine, nutritional and metabolic diseases, and immunity disorders",                     
-      "external causes of injury and supplemental classification",            
-      "infectious and parasitic diseases",                                    
-      "injury and poisoning",                                                 
-      "mental disorders",                                                     
-      "neoplasms" and                                                            
+      "congenital anomalies",
+      "diseases of the blood and blood-forming organs",
+      "diseases of the circulatory system",
+      "diseases of the digestive system",
+      "diseases of the genitourinary system",
+      "diseases of the musculoskeletal system and connective tissue",
+      "diseases of the nervous system",
+      "diseases of the respiratory system",
+      "diseases of the sense organs",
+      "diseases of the skin and subcutaneous tissue",
+      "endocrine, nutritional and metabolic diseases, and immunity disorders",
+      "external causes of injury and supplemental classification",
+      "infectious and parasitic diseases",
+      "injury and poisoning",
+      "mental disorders",
+      "neoplasms" and
       "symptoms, signs, and ill-defined conditions".
-  
-- <b> Other descriptive variables:</b> 
-  
+
+- <b> Other descriptive variables:</b>
+
   "ADMISSION_TYPE", "INSURANCE", "ETHNICITY", "HOSPITAL_EXPIRE_FLAG", "GENDER" and "EXPIRE_FLAG"
-       
+
 
 **Code (data wrangling performed in R)**
 
@@ -602,29 +601,29 @@ library(dplyr)
 
 usecase_1 <- function(admissions,patients,icustays,diagnosis)
 {
-    
+
     #################### Loading datasets ##############################################
-    
+
     adm <-read.csv(admissions)
     pat <- read.csv(patients)
     icu <- read.csv(icustays)
     diagn <- read.csv(diagnosis)
     map <- read.csv("mapping.csv")
-    
+
     #################### Selecting specifc columns #####################################
-    
+
     adm <- adm[,2:ncol(adm)]
     pat <- pat[,2:ncol(pat)]
     icu <- icu[,2:ncol(icu)]
     pres <- pres[,2:ncol(pres)]
-    
+
     #################### Merging various tables ########################################
-    
+
     merged_1<- merge(x=adm,y=pat,by.x = c("SUBJECT_ID"), by.y=c("SUBJECT_ID"))
     merged_2<- merge(x=merged_1,y=icu,by.x = c("SUBJECT_ID"), by.y=c("SUBJECT_ID"))
-    
+
     #################### Data wrangling on Diagnosis dataset ###########################
-    
+
     diagnosis_unique <- data.frame(unique(diagn$ICD9_CODE)
     names(diagnosis_unique)[1] <-"icd9"
     merged_diag<- merge(x=diagnosis_unique,y=map,by.x = c("icd9"), by.y=c("icd"))
@@ -633,14 +632,14 @@ usecase_1 <- function(admissions,patients,icustays,diagnosis)
     diagn_final$final_id <-paste(diagn_final$SUBJECT_ID,diagn_final$HADM_ID, sep="_")
     diagn_final$count <-1
     diagn_final <- diagn_final[,c(2,7,8)]
-    
+
     #################### Pivoting up Diagnosis dataset #################################
-    
+
     step1<- dcast(data = diagn_final, formula = final_id ~ icd_chp, fun.aggregate = sum, value.var = "count")
     merged_2$final_id <-paste(merged_2$SUBJECT_ID,merged_2$HADM_ID.x, sep="_")
-    
+
     #################### Merging pivotted up diagnosis dataset with main dataset #######
-    
+
     merged_3<- merge(x=merged_2,y=step1,by.x = c("final_id"), by.y=c("final_id"))
     merged_3 <- merged_3[,c(1,7,10,14,18,20,25,35,36:54)]
     merged_3 <- merged_3%>%filter(LOS!="NA")
@@ -1161,17 +1160,17 @@ mortality.dtypes
 
 
 
-In this section we check how the execution time increases when the data size increases for the two algorithms TGAN and CTGAN. 
+In this section we check how the execution time increases when the data size increases for the two algorithms TGAN and CTGAN.
 
-When testing both the modules, the most time consuming part of the process seems to be the training time for e TGAN and CTGAN algorithms. This is understandable as GANS are basically two neural networks who are competing against each other to outdo the other. This back and forth, as well as the backpropagation to adjust the weights requires a lot of time and resources and we wanted to understand the exact time taken by these in case we wanted to scale them for future applications.  
+When testing both the modules, the most time consuming part of the process seems to be the training time for e TGAN and CTGAN algorithms. This is understandable as GANS are basically two neural networks who are competing against each other to outdo the other. This back and forth, as well as the backpropagation to adjust the weights requires a lot of time and resources and we wanted to understand the exact time taken by these in case we wanted to scale them for future applications.
 
-We approach testing these algorithms in the following way. We have two data types we are working with, mainly Continuous and categorical datasets. We want to record execution times for both of these types of columns. We also want to observe how the training time varies with increasing number of rows and columns. 
+We approach testing these algorithms in the following way. We have two data types we are working with, mainly Continuous and categorical datasets. We want to record execution times for both of these types of columns. We also want to observe how the training time varies with increasing number of rows and columns.
 
-We take a two datasets both having 100,000 rows and 25 columns. One dataset has all Categorical columns and one of them has only numeric columns. We want to vary the number of rows and columns and time the algorithm to check the execution time for both the algorithms. 
+We take a two datasets both having 100,000 rows and 25 columns. One dataset has all Categorical columns and one of them has only numeric columns. We want to vary the number of rows and columns and time the algorithm to check the execution time for both the algorithms.
 
 
 
-TGAN 
+TGAN
 
 **Categorical Data**
 
@@ -1189,7 +1188,7 @@ Increasing Number of columns
 
 
 
-CT-GAN 
+CT-GAN
 
 **Categorical Data**
 
@@ -1245,7 +1244,7 @@ For the probability distribution of discrete variable:
 
 KL divergence is not symmetric, which means that how different two distributions compared to each other is usually not the same. In this case, KL divergence would be used to calculate how different the synthetic data generated is from the original data. The intuition for KL divergence score is that when the probability for an event from p is large, but the probability for the same event in q is small, then it would result in a large divergence.
 
-KL divergence can be used to measure continuous or discrete probability distributions, but in the latter case the integral of the events is calculated in stead of the sum of the probabilities of the discrete events. It requires the input data to have a sum of 1, it would not be a proper probability distribution otherwise. Therefore, transformation step before calculating the KL divergence is required, which converts the original column-wise data to an array of probability values of different events. 
+KL divergence can be used to measure continuous or discrete probability distributions, but in the latter case the integral of the events is calculated in stead of the sum of the probabilities of the discrete events. It requires the input data to have a sum of 1, it would not be a proper probability distribution otherwise. Therefore, transformation step before calculating the KL divergence is required, which converts the original column-wise data to an array of probability values of different events.
 
 For discrete columns:
 
@@ -1257,11 +1256,11 @@ For discrete columns:
 
 **Different techniques required for discrete and continuous data:**
 
-Different from how it is for discrete data, it is impossible to generate a specific and accurate probability value for each data points in the sample of continuous data. The probability of continuous data is defined as the area under the pdf curve, so theoretically the probability of each data point is 0. In our use case, the 'length of Stay' is the only continuous variable because both day and the time during the day are considered in this variable. We will round the values of length of stay to make it all integers for better calculating the the similarity of probability distribution. The probability values will be ordered based on the number of length stayed, the number of length stayed that does not show up in the rounded data would be assigned 0 as its probability. For example, if there is no patient staying in the ICU around 6 days, the probability of the value "6" will be assigned as 0. 
+Different from how it is for discrete data, it is impossible to generate a specific and accurate probability value for each data points in the sample of continuous data. The probability of continuous data is defined as the area under the pdf curve, so theoretically the probability of each data point is 0. In our use case, the 'length of Stay' is the only continuous variable because both day and the time during the day are considered in this variable. We will round the values of length of stay to make it all integers for better calculating the the similarity of probability distribution. The probability values will be ordered based on the number of length stayed, the number of length stayed that does not show up in the rounded data would be assigned 0 as its probability. For example, if there is no patient staying in the ICU around 6 days, the probability of the value "6" will be assigned as 0.
 
-*Limitation of **KL-divergence**:* 
+*Limitation of **KL-divergence**:*
 
-Even though KL divergence is a good measurement for common cases, it is restricted to be used on two distributions that have the same length of probability distribution. In the case when the generated discrete column has less number of events from the original one, we need to make sure including all events into the probability distribution of the synthetic one by adding 0 as the probability of the omitted event. According to KL-divergence's formula, the probability sequence put in should not contain zero, it would output infinity other wise. 
+Even though KL divergence is a good measurement for common cases, it is restricted to be used on two distributions that have the same length of probability distribution. In the case when the generated discrete column has less number of events from the original one, we need to make sure including all events into the probability distribution of the synthetic one by adding 0 as the probability of the omitted event. According to KL-divergence's formula, the probability sequence put in should not contain zero, it would output infinity other wise.
 
 Considering the special property of continuous data, we propose using cosine similarity for calculating the probability list of the continuous data, in order to maintain the closest probability distribution towards the original data.
 
@@ -1279,7 +1278,7 @@ For continuous columns:
 
 **Step 2:** Convert original data to probability values
 
-**Step3:** Calculate the Cosine Similarity 
+**Step3:** Calculate the Cosine Similarity
 
 
 
@@ -1303,7 +1302,7 @@ KL divergence and frequency distribution of "insurance" pair-columns on **POC da
 
 
 
-2. **Continuous** column demo 
+2. **Continuous** column demo
 
 KL-divergence score and distributions of 'Length of Stay' pair-columns on dataset generated by **tGAN**:
 
@@ -1331,15 +1330,15 @@ Regardless whether the column is discrete or continuous, every column generated 
 
 #### 2.1 Dimension Reduction Metric
 
-Dimensionality reduction techniques are proposed to compress high-dimensional table in a way that generates a lower dimensional representation of original table, which further enables similarity score calculation and visualization of the relationships among columns in a table. 
+Dimensionality reduction techniques are proposed to compress high-dimensional table in a way that generates a lower dimensional representation of original table, which further enables similarity score calculation and visualization of the relationships among columns in a table.
 
 #### 2.1.1 Auto-encoder
 
 *Description and Rationale for Autoencoder*
 
-Autoencoder is considered as a data compression algorithm and has long been thought to be a potential avenue for solving the problem of unsupervised learning, i.e. the learning of useful representations without the need for labels. Stated from [Keras team](https://blog.keras.io/building-autoencoders-in-keras.html) about Autoencoder,  autoencoders are not true unsupervised learning technique (which would imply a different learning process together), they are self-supervised technique, a specific instance of supervised learning where the targets are exactly the input data or generated from the input data. 
+Autoencoder is considered as a data compression algorithm and has long been thought to be a potential avenue for solving the problem of unsupervised learning, i.e. the learning of useful representations without the need for labels. Stated from [Keras team](https://blog.keras.io/building-autoencoders-in-keras.html) about Autoencoder,  autoencoders are not true unsupervised learning technique (which would imply a different learning process together), they are self-supervised technique, a specific instance of supervised learning where the targets are exactly the input data or generated from the input data.
 
-In our case, the aim of an autoencoder is to learn a representation (embedding) of the relationships among multiple features in our table by setting the input and target data the same. Because Neural Networks can slowly approximate any function that maps inputs to outputs through an iterative optimization process called training. The embedding space has fewer dimensions (columns) than the feature data in a way that captures some latent structure of the feature data set. 
+In our case, the aim of an autoencoder is to learn a representation (embedding) of the relationships among multiple features in our table by setting the input and target data the same. Because Neural Networks can slowly approximate any function that maps inputs to outputs through an iterative optimization process called training. The embedding space has fewer dimensions (columns) than the feature data in a way that captures some latent structure of the feature data set.
 
 
 
@@ -1352,7 +1351,7 @@ Autoencoder can be broken in to 2 parts:
 
 
 
-In order to make sure both synthetic table and original table are transformed exactly in the same process, we will train the auto-encoder using the original dataset and then predict on the synthetic dataset using the model built. 
+In order to make sure both synthetic table and original table are transformed exactly in the same process, we will train the auto-encoder using the original dataset and then predict on the synthetic dataset using the model built.
 
 
 
@@ -1370,7 +1369,7 @@ Next we would quantify the similarity for pairs of examples by using their embed
 
 We now have embeddings for the pair of tables. A similarity measure takes these embeddings and returns a number measuring their similarity. Remember that embeddings are simply vectors of numbers. To find the similarity between two vectors A=[a1,a2,...,an] and B=[b1,b2,...,bn], we can use Cosine Similarity that we mentioned before. It is a better measurement than Euclidean distance because it considers the angle of the vectors by putting them on a high dimensional space for comparison. And it outputs a score that ranges from 0 to 1 where 0 means that two vectors are oriented completely differently and 1 means that two vectors are oriented identically. This makes the comparison of the performances between different GAN algorithms easier.
 
-Because there would be synthetic tables that have a different number of rows than the original table, we would consider the distribution as how we do for column-wise distribution evaluation instead of the pure values of the embeddings. We would take similar steps for 
+Because there would be synthetic tables that have a different number of rows than the original table, we would consider the distribution as how we do for column-wise distribution evaluation instead of the pure values of the embeddings. We would take similar steps for
 
 *Demo:*
 
@@ -1378,9 +1377,9 @@ Cosine similarity score using 5-dim latent representation from autoencoder using
 
 *Limitations:*
 
-1) The challenge applying Autoencoder with tabular data is the fact that each column represents its unique type of distribution. In other words, data types such as categories, ID numbers, ranks, binary values are all smashed into one sample table. 
+1) The challenge applying Autoencoder with tabular data is the fact that each column represents its unique type of distribution. In other words, data types such as categories, ID numbers, ranks, binary values are all smashed into one sample table.
 
-2) an autoencoder assume that all features (columns) in the table determines the similarity at the same degree, which means that this isn't the optimal choice when certain features could be more important than others in determining similarity. 
+2) an autoencoder assume that all features (columns) in the table determines the similarity at the same degree, which means that this isn't the optimal choice when certain features could be more important than others in determining similarity.
 
 
 
@@ -1392,7 +1391,7 @@ For visualization, PCA or t-SNE can be used to generate a lower dimensional data
 
 Principal Component Analysis (PCA) is a linear feature extraction technique. It performs a linear mapping of the data to a lower-dimensional space in such a way that the variance of the data in the low-dimensional representation is maximized. It does so by calculating the eigenvectors from the covariance matrix. The eigenvectors that correspond to the largest eigenvalues (the principal components) are used to reconstruct a significant fraction of the variance of the original data.
 
-t-Distributed Stochastic Neighbor Embedding (t-SNE) is a tool to visualize high-dimensional data. It converts similarities between data points to joint probabilities and tries to minimize the Kullback-Leibler divergence between the joint probabilities of the low-dimensional embedding and the high-dimensional data. However, t-SNE in Scikit learn has a cost function that is not convex according to Scikit learn [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html), which makes two visualizations of two tables generated by the same transformation function not comparable. Because they use different initializations for the transformation, we would get different results. 
+t-Distributed Stochastic Neighbor Embedding (t-SNE) is a tool to visualize high-dimensional data. It converts similarities between data points to joint probabilities and tries to minimize the Kullback-Leibler divergence between the joint probabilities of the low-dimensional embedding and the high-dimensional data. However, t-SNE in Scikit learn has a cost function that is not convex according to Scikit learn [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html), which makes two visualizations of two tables generated by the same transformation function not comparable. Because they use different initializations for the transformation, we would get different results.
 
 Therefore, in this document, we would use PCA as techniques for visualization comparison. t-SNE is still a great technique recommended for visualizing high-dimensional data because it is a probabilistic technique compared to PCA that is a  mathematical one. Linear dimensionality reduction algorithms, like PCA, concentrate on placing dissimilar data points far apart in a lower dimension representation. But in order to represent high dimension data on low dimension, non-linear manifold, it is essential that similar data points must be represented close together, which is something t-SNE does not PCA.
 
@@ -1406,7 +1405,7 @@ Step 2: Extract the embeddings of original table and synthetic table respectivel
 
 Step 3: Train a PCA transformation using the original embedding for reducing the dimension to 2, and use the same transformation for the synthetic embedding.
 
-Step 4: Visualize the results of PCA with two scatter plots 
+Step 4: Visualize the results of PCA with two scatter plots
 
 
 
@@ -1527,50 +1526,50 @@ tgan = tgan[['ADMISSION_TYPE',
 #Parameters: Original Dataset, Synthetic Data, List of Columns to use
 #Returns processed Original Dataset, Synthetic Dataset, Column-Levels Mapping
 def prepData(original, tgan, col_list=None):
-    
-    
+
+
     #Select Columns from Original and Synthetic Dataset
     if col_list is not None:
         tgan = tgan[col_list]
         original = original[col_list]
-    
-    #One-Hot Encode and Normalize the Original Dataset    
+
+    #One-Hot Encode and Normalize the Original Dataset
     x = pd.get_dummies(original).values #returns a numpy array
     min_max_scaler = preprocessing.MinMaxScaler()
     x_scaled = min_max_scaler.fit_transform(x)
     original_df = pd.DataFrame(x_scaled)
     original_df.columns = pd.get_dummies(original).columns
-    
-    #One-Hot Encode and Normalize the Synthetic Dataset 
+
+    #One-Hot Encode and Normalize the Synthetic Dataset
     x = pd.get_dummies(tgan).values #returns a numpy array
     min_max_scaler = preprocessing.MinMaxScaler()
     x_scaled = min_max_scaler.fit_transform(x)
     synth_df = pd.DataFrame(x_scaled)
     synth_df.columns = pd.get_dummies(tgan).columns
 
-    #Number of Categorical Feature Levels that were dropped because Synthetic Dataset did not report them    
+    #Number of Categorical Feature Levels that were dropped because Synthetic Dataset did not report them
     print("{0} columns levels were dropped because they were not observed in synthetic data ".format(str(len(original_df.columns) - len(synth_df.columns))))
-    
+
     #Adding column names back
     synth_df.columns = pd.get_dummies(synth_df).columns
     original_df = original_df[synth_df.columns]
-     
-        
-    #Feature - Feature Level Mapping (Useful to map One-Hot Encoded feature levels and associate it to a certain feature)    
+
+
+    #Feature - Feature Level Mapping (Useful to map One-Hot Encoded feature levels and associate it to a certain feature)
     col_mapping = {}
-    
+
     if col_list is None:
         for col in original.columns:
 
             col_mapping[col] = [x for x in original_df.columns if x.startswith(col)]
     else:
         for col in col_list:
-            col_mapping[col] = [x for x in original_df.columns if x.startswith(col)]  
-          
-          
+            col_mapping[col] = [x for x in original_df.columns if x.startswith(col)]
+
+
     return original_df, synth_df, col_mapping
-    
-    
+
+
 ```
 
 
@@ -1583,7 +1582,7 @@ original_df, synth_df, col_mapping = prepData(original, tgan, col_list = None)
 del original, tgan
 ```
 
-34 columns levels were dropped because they were not observed in synthetic data 
+34 columns levels were dropped because they were not observed in synthetic data
 
 ```python
 #Check if all columns are the same in both datasets
@@ -1595,10 +1594,10 @@ original_df.columns == synth_df.columns
 ```python
 #Parameters: Original Dataset, Synthetic Dataset, Number of Closest Points to Analyze, Original IDs/Indexes, Verbose Flag
 def estimatePAR(original_df, synth_df, top_n, original_uid = None, verbose=0 ):
-    
+
     #Timer
     now = datetime.now()
-    
+
     #Compute External Distances
     externals = pairwise_distances(np.asarray(original_df), np.asarray(synth_df), n_jobs=-1)
     del synth_df
@@ -1607,10 +1606,10 @@ def estimatePAR(original_df, synth_df, top_n, original_uid = None, verbose=0 ):
     now3 = datetime.now()
     if verbose == 1:
         print('External Similarities Completed: Time: {0}'.format(str(now3-now)))
-    
+
     #Compute Internal Distances
     withins = pairwise_distances(np.asarray(original_df), np.asarray(original_df) )
-    
+
     #Handling the Patient Journey vs Patient Info type of datasets wrt Internal Similarity
     if original_uid is not None:
         #Track uids
@@ -1618,45 +1617,45 @@ def estimatePAR(original_df, synth_df, top_n, original_uid = None, verbose=0 ):
         uidDict = []
         for id in original_uidf.uid.unique():
             uidDict.append(original_uidf[original_uidf.uid==id]['index'].values)
-            
+
         del original_uidf
-        
+
         #Track all records associated with this patient, remove and compare only to others.
         withinDistance = [np.sort(np.delete(withins[i], [v for v in uidDict if i in v][0]))[:top_n].mean() for i in range(0, len(original_df))]
         del withins
-        
+
     else:
         withinDistance = [np.sort(np.delete(withins[i], i))[:top_n].mean() for i in range(0, len(original_df))]
         del withins
-        
+
     now2 = datetime.now()
     if verbose == 1:
         print('Internal Similarities Completed: Time: {0}'.format(str(now2-now)))
-    
+
     #Add all info into a results dataset
     df_d = pd.DataFrame()
     df_d['synthetic'] = externalDistance #d_synthetics
     df_d['within'] = withinDistance #d_withins
-    
+
     # 'Closer' variable tells whether Within Similarity is lower than External Similarity ie. Internal Distance greater than
     # External - Closer being 1 means this is a risky datapoint.
     df_d['closer'] = df_d.within >= df_d.synthetic
-    
-    #Lift measures the increase in Risk as a ratio of Internal Distance / External Distance. A Lift < 1 means not Risky. 
+
+    #Lift measures the increase in Risk as a ratio of Internal Distance / External Distance. A Lift < 1 means not Risky.
     #Higher values of Lift mean those data points in Original Dataset are at a risk of being re-identified
     df_d['lift'] = df_d.within / df_d.synthetic
-    
+
     #Report all the At Risk IDs in Original Dataset
     atRiskIds = df_d[df_d['closer']==True].sort_values(by="lift", ascending=False).index
-    
+
     now4 = datetime.now()
     if verbose == 1:
         print("Total Time:{0}".format(str(now4-now)))
-    
+
     #Compute the Privacy At Risk Value
     par = df_d['closer'].mean()*100
     print("Privacy At Risk: {0}% ".format(par))
-    
+
     return df_d, atRiskIds, par, now4-now
 ```
 
@@ -1715,10 +1714,10 @@ def runSensitivityAnalysis(original_df, synth_df, original_uid, col_mapping, ini
 
     sensitivityDf['new_PAR'] = newPARs
     sensitivityDf['sensitivity_lift'] = (initialPAR - sensitivityDf['new_PAR'])*100/initialPAR
-    
+
     return sensitivityDf
-    
-sens_df = runSensitivityAnalysis(original_df, synth_df, original_uid, col_mapping, 6.14317)   
+
+sens_df = runSensitivityAnalysis(original_df, synth_df, original_uid, col_mapping, 6.14317)
 sens_df['sensitivity_lift'] = (6.143 - sens_df['new_PAR'] )*100/6.143
 sens_df.sort_values(by="sensitivity_lift", ascending=False)
 ```
@@ -1768,26 +1767,26 @@ withinDistances
 
 ```PYTHON
 def removeRisk(original_df, synth_df, atrisk, top_remove, multipleCloseFlag=False, withins=None):
-    
+
     #Set up a percentile for how many points you wanna remove : Eg: 10%
     n = round(len(atrisk)*top_remove/100)
     atrisk = atrisk[:n]
-    
+
     riskyPoints = original_df.iloc[atrisk, :]
-    
+
     synth_risks = []
-    
-    distances = pairwise_distances(np.asarray(riskyPoints), np.asarray(synth_df))     
-    
+
+    distances = pairwise_distances(np.asarray(riskyPoints), np.asarray(synth_df))
+
     if multipleCloseFlag == False:
         for i in range(0, len(atrisk)):
             synth_risks += list(np.where(distances[i] == np.amin(distances))[0])
     else:
         for i in range(0, len(atrisk)):
             synth_risks += list(np.where(distances[i] < withins[i])[0])
-        
+
     estimatePAR(original_df, synth_df.drop(synth_risks), 1, None, verbose=1)
-    
+
     return synth_df.drop(synth_risks)
 ```
 
@@ -1854,7 +1853,7 @@ By connecting the two modules, we will be able to run multiple iterations to und
 #### Code
 
 1. Importing required libraries and csv data for use case 2 (mortality prediction): There are 6 main libraries required to run this module. It includes pandas, sklearn, keras (Neural Network), scikitplot, matplotlib, and xgboost. We are using data set created under <b> Use case </b> section for Use case 2 - Mortality prediction.
-2. Filter data and one hot encoding: Data contains fields like SUBJECT_ID and HADM_ID which are unique to each rows and doesn't contribute towards predicting the mortality. Also, we have columns like ETHNICITY and MARITAL_STATUS which are also not good predictors and thus can be removed. After filtering these columns, we need to one hot encod remaining ctaegorical columns like ADMISSION_TYPE and GENDER. 
+2. Filter data and one hot encoding: Data contains fields like SUBJECT_ID and HADM_ID which are unique to each rows and doesn't contribute towards predicting the mortality. Also, we have columns like ETHNICITY and MARITAL_STATUS which are also not good predictors and thus can be removed. After filtering these columns, we need to one hot encod remaining ctaegorical columns like ADMISSION_TYPE and GENDER.
 3. Startified sampling for train test split: HOSPITAL_EXPIRE_FLAG is our target variable and is not balanced. The imbalance ratio is 10:1 i.e. there are 10 non expired patients corresponding to each expired patient in dataset. In order to account for this imabalnce and make sure this ratio is maintained in train and test, we used stratified sampling
 4. Generate synthetic data: Post splitting dataset into train and test, we need to generate synthetic data using original train data. This task will be perfomed using TGAN and CTGAN in separate script. We will simply read the synthetic data generated by GAN algorithms in this script.
 5. Data correction: The data generated by GAN algorithm treat numeric columns as continous columns rather than only integer values. As it try to replicate the distribution of data, it generate decimal values like 2.45 and also negative values like -2 for these numeric columns. In our use case, we can have only integer values and thud we need to corret data before building models.
@@ -2117,10 +2116,10 @@ print('Logistic regression model \n')
 model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
-    Logistic regression model 
+    Logistic regression model
     
     Training Accuracy:  0.73
-    Testing Accuracy:  0.73  
+    Testing Accuracy:  0.73
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2132,7 +2131,7 @@ model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.61      0.76      0.60     11796
     weighted avg       0.90      0.73      0.78     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  7628  2997
@@ -2191,10 +2190,10 @@ print('XGBoost model \n')
 model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
-    XGBoost model 
+    XGBoost model
     
     Training Accuracy:  0.8
-    Testing Accuracy:  0.79  
+    Testing Accuracy:  0.79
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2206,7 +2205,7 @@ model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.64      0.81      0.66     11796
     weighted avg       0.91      0.79      0.83     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  8351  2274
@@ -2265,7 +2264,7 @@ model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
     Training Accuracy:  0.84
-    Testing Accuracy:  0.81  
+    Testing Accuracy:  0.81
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2277,7 +2276,7 @@ model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.64      0.80      0.67     11796
     weighted avg       0.91      0.81      0.84     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  8657  1968
@@ -2347,10 +2346,10 @@ print('Logistic regression model \n')
 model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
-    Logistic regression model 
+    Logistic regression model
     
     Training Accuracy:  0.7
-    Testing Accuracy:  0.68  
+    Testing Accuracy:  0.68
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2362,7 +2361,7 @@ model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.59      0.74      0.57     11796
     weighted avg       0.90      0.68      0.75     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  7116  3509
@@ -2417,10 +2416,10 @@ print('XGBoost model \n')
 model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
-    XGBoost model 
+    XGBoost model
     
     Training Accuracy:  0.74
-    Testing Accuracy:  0.7  
+    Testing Accuracy:  0.7
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2432,7 +2431,7 @@ model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.60      0.76      0.58     11796
     weighted avg       0.90      0.70      0.76     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  7304  3321
@@ -2474,7 +2473,7 @@ model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
     Training Accuracy:  0.75
-    Testing Accuracy:  0.69  
+    Testing Accuracy:  0.69
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2486,7 +2485,7 @@ model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.59      0.75      0.57     11796
     weighted avg       0.90      0.69      0.75     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  7148  3477
@@ -2556,10 +2555,10 @@ print('Logistic regression model \n')
 model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
-    Logistic regression model 
+    Logistic regression model
     
     Training Accuracy:  0.7
-    Testing Accuracy:  0.64  
+    Testing Accuracy:  0.64
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2571,7 +2570,7 @@ model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.58      0.71      0.53     11796
     weighted avg       0.89      0.64      0.71     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  6578  4047
@@ -2626,10 +2625,10 @@ print('XGBoost model \n')
 model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
-    XGBoost model 
+    XGBoost model
     
     Training Accuracy:  0.72
-    Testing Accuracy:  0.67  
+    Testing Accuracy:  0.67
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2641,7 +2640,7 @@ model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.59      0.74      0.56     11796
     weighted avg       0.89      0.67      0.74     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  6973  3652
@@ -2681,7 +2680,7 @@ model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
     Training Accuracy:  0.74
-    Testing Accuracy:  0.65  
+    Testing Accuracy:  0.65
     
     Classification Report:
                   precision    recall  f1-score   support
@@ -2693,7 +2692,7 @@ model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
        macro avg       0.58      0.71      0.54     11796
     weighted avg       0.89      0.65      0.72     11796
     
-    Confusion Matrix: 
+    Confusion Matrix:
     Actual Predicted
           0     1
     0  6797  3828
@@ -2733,7 +2732,7 @@ All models were optimized to improve AUC-ROC metric and since we are predicting 
 
 One of the applications of generating datasets can be to generate larger datasets from smaller one. We have already observed before that the synthetically generated data from TGAN and CTGAN is statistically similar to the original datasets. One can take advantage of this to generate datasets that are larger than the original datasets for applications such as training a Neural network which inherently requires large amounts of data, improving efficiency of an existing models as well. But before generating this dataset, a few things should be taken into consideration.
 
-- Statistical Similarity has only been checked on datasets that are of the same size as the original data. Before generating larger datasets, the same statistical similarity tests should be performed on larger datasets of the desired size. 
+- Statistical Similarity has only been checked on datasets that are of the same size as the original data. Before generating larger datasets, the same statistical similarity tests should be performed on larger datasets of the desired size.
 - Generating Synthetic datasets work by the algorithm calculating the distribution of a column, and then generating data by sampling form the distribution. One thing to note here is that as we draw larger number of samples from the original data, there is a higher chance that the model might sample the original observation from the dataset. Before generating larger dataset, the privacy module should also be tested on the dataset to make sure that this does not happen or such samples should be excluded from the result.
 
 ## Privacy Tuning
@@ -2742,7 +2741,7 @@ One of the applications of generating datasets can be to generate larger dataset
 
 TGAN and CTGAN are readily available modules and we have presented a comprehensive understanding, working and data generation analysis for both of these. however, as discussed above, there exists other GAN algorithms such as DP-GAN and PATE-GAN which have inbuilt statistical similarity and privacy measures that are desirable. However for these algorithms, there is no open source implementation available for tabular data, and actually creating these modules were out of scope.
 
-One of the next steps could be to take existing TGAN module and modify the code to add the privacy and statistical similarity modules from CTGAN and DPGAN. The GAN algorithm works by first the discriminator learning to distinguish between real and fake datasets and then the generator adjusting itself to trying to beat the discriminator's algorithm. If privacy and statistical similarity modules are already added in the Discriminator, then the generator will produce data adhering to those requirements. One place to modify these should be the loss function of the generator and the discriminator. 
+One of the next steps could be to take existing TGAN module and modify the code to add the privacy and statistical similarity modules from CTGAN and DPGAN. The GAN algorithm works by first the discriminator learning to distinguish between real and fake datasets and then the generator adjusting itself to trying to beat the discriminator's algorithm. If privacy and statistical similarity modules are already added in the Discriminator, then the generator will produce data adhering to those requirements. One place to modify these should be the loss function of the generator and the discriminator.
 
 
 
@@ -2760,8 +2759,3 @@ https://medium.com/georgian-impact-blog/a-brief-introduction-to-differential-pri
 https://www.techfunnel.com/information-technology/3-types-of-data-anonymization-techniques-and-tools-to-consider/
 https://towardsdatascience.com/synthetic-data-generation-a-must-have-skill-for-new-data-scientists-915896c0c1ae
 https://www.ijstr.org/final-print/mar2017/A-Review-Of-Synthetic-Data-Generation-Methods-For-Privacy-Preserving-Data-Publishing.pdf
-
-
-
-
-

@@ -10,40 +10,82 @@
 
 # Executive Summary
 
+## Project Definition
+
+**What is the context?**
+
+Advanced analytics is transforming all industries and is inherently data hungry. In health care data privacy rules detract data sharing for collaboration. Synthetic data, that retains the original characteristics and model compatible, can make data sharing easy and enable analytics for health care data.
+
+**What is the need for change? Why now?**
+
+Conventionally statistical methods have been used, but with limited success. Current deidentification techniques are not sufficient to mitigate re-identification risks. Emerging technologies in Deep Learning such as GAN are very promising to solve this problem.
+
+**What ONE question, if answered, would solve the problem?**
+
+How can you certify that the generated data is as similar and as useful as original data for the intended uses?
+
+**What is the desired end use?**
+
+- Derive insights
+- Use for new product design
+- Use for software quality improvement
 
 
 
+# Introduction
 
+Optum deals with sensitive healthcare data that has Personal identifiable Information (PII) of 100M+ people and it is expanding every day. The healthcare industry is particularly sensitive as Patient Identifiable Information data is strictly regulated by the Health Insurance Portability and Accountability Act (HIPPA) of 1996. Healthcare firms need to keep customer data secure while leveraging it to innovate research and drive growth in the firm. However, current data sharing practices (to ensure de-identification) have resulted in wait times for data access as long as 3 months. This has proved to be a hindrance to fast innovation at Optum. The need of the hour is to reduce the time for data access and enable innovation while protecting the information of patients. The key question to answer here is:
 
+ 
 
-# Introduction - Piyush
+​                                       **"How can we safely and efficiently share healthcare data that is useful?"**
 
-Data breaches have been on the rise across the world, with major attacks in the range of thousands. The healthcare industry is particularly sensitive to this problem as Patient Identifiable Information data is highly sensitive and strictly regulated by the Health Insurance Portability and Accountability Act (HIPPA) of 1996. With increasing data breaches, Healthcare firms need to innovate the way they store and leverage data to wade through regulatory compliance and keep customer data secure.
+**Complication**
 
-Optum handles PII information of millions of customers, and leverages the data to innovate research and drive growth in the firm. The strict regulations, notably GDPR and the impending California Consumer Protection Act of 2020, might constrain Optum to limit the way they collect and store data. Current data sharing practices (to ensure de-identification) have resulted in wait times for data access as long as 3 months for analysts. These factors have proved to be hindrances for fast innovation at Optum. 
-
-**The key question to answer here is: How can we safely and efficiently share healthcare data that is also useful?**
-
-
+The key questions involve the inherent trade-off between safety and efficiency. With the inception of big data, efficiency in the data sharing process is of paramount importance. Availability and accessibility of data ensure rapid prototyping and lay down the path for quick innovation in the healthcare industry. Efficient data sharing also unlocks the full potential of analytics and data sciences through use cases like the diagnosis of cancer, predicting response for drug therapy, vaccine developments, drug discovery through bioinformatics. Apart from medical innovation, efficient data sharing helps to bridge the shortcomings in the healthcare system through salesforce effectiveness, managing supply chain and improve patient engagement. While efficient data sharing is crucial, the safety of patient's data can not be ignored. Existing regulations like HIPPA and recent privacy laws like the California Consumer Privacy Act are focused on maintaining the privacy of sensitive information. More advanced attacks are being organized by hackers and criminals aimed at accessing personal information. As per IBM's report on cost data breaches, the cost per record is ~$150. But the goodwill and trust lost by the companies, cannot be quantified So, the balance between data sharing and privacy is tricky.
 
 # History of the Project
 
-Rationale for Synthetic Data 
+Existing de-identification techniques involve two main techniques 1) Anonymization Techniques 2) Differential Privacy. Almost every firm relies on these techniques to deal with sensitive information in PII data. These techniques have proven to be successful in the past and thus act as low hanging fruit for any organization.
 
-## *Synthetic Data Generation* - To be modified
+1. Anonymization techniques: These techniques try to remove the columns which contain sensitive information. Methods include deleting columns, masking elements, quasi-identifiers, k-anonymity, l-diversity, and t-closeness.
 
-*This method is the state of the art in reducing the reidentification risk. As we observed earlier, Data anonymization if effective but reduces the utility, Differential privacy adds small noise but has very bad model compatibility. However, Synthetic data, can be tuned to add privacy without losing either the utility, neither exposing privacy of individual data points.  As the  data doesn't represent any real entity, the disclosure of sensitive private data is eliminated. If the information available in the released synthetic data matches with any real entity participated in the original data then it is purely a co-incidence which gives individuals plausible deniability*
+2. Differential privacy: This is a perturbation technique which adds noise to columns which introduce randomness to data and thus maintain privacy. It is a mechanism to help to maximize the aggregate utility of databases ensuring high levels of privacy for the participants by striking a balance between utility and privacy.
 
-*A synthetic dataset is a repository of data that is generated programmatically.* 
+However, these techniques are not cutting edge when it comes to maintaining privacy and data sharing. Rocher et al have proven that 99.98 percent of Americans (in a sample size of the population of Massachusetts) would be correctly re-identified in any dataset using as few as 15 demographic attributes. They conclude that "even heavily sampled anonymized datasets are unlikely to satisfy the modern standards for anonymization set forth by GDPR and seriously challenge the technical and legal adequacy of the de-identification release-and-forget model.
 
-- *It can be numerical, binary, or categorical (ordinal or non-ordinal),*
-- *The **number of features and length of the dataset** should be arbitrary*
-- *It should preferably be **random** and the user should be able to choose a wide variety of **statistical distribution** to base this data upon i.e. the underlying **random process can be precisely controlled and tuned**,*
-- *If it is used for classification algorithms, then the **degree of class separation** should be controllable to make the learning problem easy or hard,*
-- ***Random noise** can be interjected in a controllable manner*
-- *For a regression problem, a complex, **non-linear generative process** can be used for sourcing the data*
+**Proposition**
+
+Currently, the field of AI which is being given a lot of importance is Deep Learning. It addresses the critical aspect of data science in this age through universality theorem (identifying function form) and representation learning (correct features). Of late, generative modeling has seen a rise in popularity. In particular, a relatively recent model called Generative Adversarial Networks or GANs introduced by Ian Goodfellow et al. shows promise in producing realistic samples. While this is a state-of-the-art deep learning models to generate new synthetic data, there are few challenges which we need to overcome.
+
+| Salient Features                                         | Challenges                                                   |
+| -------------------------------------------------------- | ------------------------------------------------------------ |
+| Neural Network is cutting edge algorithm in industry     | Trained to solve one specific task, can it fit all use cases? |
+| Generate image using CNN architecture                    | Can we generate table from relational databases?             |
+| Generate fake images of human faces that looks realistic | Would it balance the trade-off between maintaining utility and privacy of data |
+| Requires high computational infrastructure like GPUs     | How to implement GAN for big data?                           |
+|                                                          |                                                              |
 
 # Methodology
+
+In order to validate the efficacy of GANs to serve our purpose, we propose a methodology for thorough evaluation of synthetic data generated by GANs.
+
+![](Images\methodology.png)
+
+## Synthetic Data Generation 
+
+This method is the state of the art in reducing the reidentification risk. As we observed earlier, Data anonymization if effective but reduces the utility, Differential privacy adds small noise but has very bad model compatibility. However, Synthetic data, can be tuned to add privacy without losing either the utility, neither exposing privacy of individual data points.  As the  data doesn't represent any real entity, the disclosure of sensitive private data is eliminated. If the information available in the released synthetic data matches with any real entity participated in the original data then it is purely a co-incidence which gives individuals plausible deniability
+
+A synthetic dataset is a repository of data that is generated programmatically. 
+
+- It can be numerical, binary, or categorical (ordinal or non-ordinal),
+- The **number of features and length of the dataset** should be arbitrary
+- It should preferably be **random** and the user should be able to choose a wide variety of **statistical distribution** to base this data upon i.e. the underlying **random process can be precisely controlled and tuned**,
+- If it is used for classification algorithms, then the **degree of class separation** should be controllable to make the learning problem easy or hard
+- Random noise can be interjected in a controllable manner
+- For a regression problem, a complex, **non-linear generative process** can be used for sourcing the data
+
+
 
 ## Statistical Similarity
 
@@ -89,23 +131,29 @@ Although both PCA and t-SNE have their own advantages and disadvantages, some ke
 - Sometimes in t-SNE different runs with the same hyperparameters may produce different results hence multiple plots must be observed before making any assessment with t-SNE, while this is not the case with PCA.
 - Since PCA is a linear algorithm, it will not be able to interpret the complex polynomial relationship between features while t-SNE is made to capture exactly that.
 
+Below Diagram provides a more detailed approach to the methodology outlined above. 
+
+![Blank Diagram](Images/diagram.png)
+
+
+
 ## Model Compatibility
 
-#### Overview
+1. #### Overview
 
-The synthetic data generated by GAN algorithms can be shared with internal business, academic researchers and third parties to tackle business problems. These stakeholders can then use machine learning algorithms on synthetic data to perform future predictions and create strategies as per their needs. In order to serve these needs, the synthetic data generated should have the same utlity as the original data and provide fairly similar prediction if not exactly same. Thus, it's crucial to evaluate if models generated using synthetic data are compatibile with original data? In this module, we will build different machine learning algorithms on 2 different use cases; a) Length of Stay b) Mortality prediction. The description of use cases can be found under <b> Use cases</b> section. These use cases are selected to evaluate both regression and classification models. 
+   The synthetic data generated by GAN algorithms can be shared with internal business, academic researchers and third parties to tackle business problems. These stakeholders can then use machine learning algorithms on synthetic data to perform future predictions and create strategies as per their needs. In order to serve these needs, the synthetic data generated should have the same utlity as the original data and provide fairly similar prediction if not exactly same. Thus, it's crucial to evaluate if models generated using synthetic data are compatibile with original data? In this module, we will build different machine learning algorithms on 2 different use cases; a) Length of Stay b) Mortality prediction. The description of use cases can be found under <b> Use cases</b> section. These use cases are selected to evaluate both regression and classification models. 
 
-#### Methodology
+   #### Methodology
 
-1. <b>One hot encoding (optional): </b> In case there are any categorical variables required for prediction, we first need to perform one hot encoding. This is done to make sure we don't miss out any categories in test dataset after splitting data into train and test. Example, in case of ethnicity column, there are multiple types like White, Hispanic, Asian, African etc. If we split data into train and test before performing one hot encoding, then there are chances that no Hispanic is present in test data and only present in train data. This can lead to problems while evaluating accuracy of models.
-2. <b>Split data into train and test: </b> The analytical data set generated as per the use cases is first split into 2 parts i.e. train and test in the ratio of 80:20. While splitting data set, stratified sampling is performed using the dependent / target variable, duration of stay in use case 1 (length of stay) and expiry flag in use case 2 (mortality prediction). 
-3. <b>Generate Synthetic Data: </b> Train dataset is used as an input to GAN algorithms to generate synthetic data of same name of rows. We generated synthetic data using TGAN and CTGAN which was then used to build models.
-4. <b> Standarize variables (optional): </b> Numerical variables are present on different scales and some variables cna influence the prediction results more than others. Example, Age and Salary are both numeric variables however, range of salary is much bigger than range of age and thus can impact the prediction results. In order to account for this, we standardized all variables with mean 0 and standard deviation 1. This is same as z-score formula.
-5. <b> Model building: </b> Using original train data and synthetic train data (generated by GAN algorithm). For use case 1 (Length of Stay), we used regression algorithms like Regression Tree, Random Forest, XGBoost, Support Vector Machine and K-Nearest Neighbor. For use case 2 (Mortality Prediction), we used classification algrotihms like Logistic Regression, XGBoost and Neural Network. Variety in use cases allows us to evaluate performance of synthetic data on various machine learning algorithms. In classification, due to imbalanced class of target variable, we used parameters within algorithms to assign appropriate weightage to each class.
-6. <b> Hyperparameter tuning: </b> 5-fold cross validation is performed along with grid search to perform hyperparameter tuning and selected best combination to improve the models. The metrics to evaluate can be different for different use case example, for mortality prediction, focus is on recall because we want to make sure we predict the patients who are going to die and take actions to save lives.
-7. <b> Prediction: </b> Finally, test data is used for prediction based on models generated and range of metrics were reported to compare performance. For classification, metrics like accuracy, precision, recall, f1-score and AUC-ROC. For regression, metrics like Mean Squared Error, Root Mean Squared Error, Mean Absolute Error, Mean Absolute Percentage Error. 
+   1. <b> One hot encoding (optional): </b> In case there are any categorical variables required for prediction, we first need to perform one hot encoding. This is done to make sure we don't miss out any categories in test dataset after splitting data into train and test. Example, in case of ethnicity column, there are multiple types like White, Hispanic, Asian, African etc. If we split data into train and test before performing one hot encoding, then there are chances that no Hispanic is present in test data and only present in train data. This can lead to problems while evaluating accuracy of models.
+   2. <b> Split data into train and test: </b> The analytical data set generated as per the use cases is first split into 2 parts i.e. train and test in the ratio of 80:20. While splitting data set, stratified sampling is performed using the dependent / target variable, duration of stay in use case 1 (length of stay) and expiry flag in use case 2 (mortality prediction). 
+   3. <b> Generate Synthetic Data: </b> Train dataset is used as an input to GAN algorithms to generate synthetic data of same name of rows. We generated synthetic data using TGAN and CTGAN which was then used to build models.
+   4. <b> Standarize variables (optional): </b> Numerical variables are present on different scales and some variables cna influence the prediction results more than others. Example, Age and Salary are both numeric variables however, range of salary is much bigger than range of age and thus can impact the prediction results. In order to account for this, we standardized all variables with mean 0 and standard deviation 1. This is same as z-score formula.
+   5. <b> Model building: </b> Using original train data and synthetic train data (generated by GAN algorithm). For use case 1 (Length of Stay), we used regression algorithms like Regression Tree, Random Forest, XGBoost, Support Vector Machine and K-Nearest Neighbor. For use case 2 (Mortality Prediction), we used classification algrotihms like Logistic Regression, XGBoost and Neural Network. Variety in use cases allows us to evaluate performance of synthetic data on various machine learning algorithms. In classification, due to imbalanced class of target variable, we used parameters within algorithms to assign appropriate weightage to each class.
+   6. <b> Hyperparameter tuning: </b> 5-fold cross validation is performed along with grid search to perform hyperparameter tuning and selected best combination to improve the models. The metrics to evaluate can be different for different use case example, for mortality prediction, focus is on recall because we want to make sure we predict the patients who are going to die and take actions to save lives.
+   7. <b> Prediction: </b> Finally, test data is used for prediction based on models generated and range of metrics were reported to compare performance. For classification, metrics like accuracy, precision, recall, f1-score and AUC-ROC. For regression, metrics like Mean Squared Error, Root Mean Squared Error, Mean Absolute Error, Mean Absolute Percentage Error. 
 
-<img src="C:\Users\pmven\Google Drive\MSBA Coursework\MSBA\6510 Optum\Synthetic Data Methodology\Synthetic-Tabular-Data-Generation\Images\model compatibility.png" style="zoom:70%;" />
+<img src="Images\model compatibility.png" style="zoom:70%;" />
 
 
 
@@ -161,29 +209,31 @@ The goal of this whitepaper is to define how Optum can define the Privacy Risk i
 
 We are predominantly concerned about bad actors being able to join our datasets with the synthetic dataset with outside information to gain access to our PII information. Hence, if there is an opportunity to confuse the bad actor in a way they cannot link a synthetic datapoint to an original datapoint, that is the ideal scenario for us.
 
-**The PaR Metric works** by leveraging this idea of confusion. How many datapoints in our set can be confused for with other people/other records? The higher the confusion, the lesser the chance of a person being re-identified. The focus is primarily on whether including a certain record increases the chance of exposing a person/record and the degree of the exposure.
+**The PaR Metric works** by leveraging this idea of confusion. How many data points in our set can be confused for with other people/other records? The higher the confusion, the lesser the chance of a person being re-identified. The focus is primarily on whether including a certain record increases the chance of exposing a person/record and the degree of the exposure.
 
 The Synthetic Data Generation process by itself brings in noise into the data, in a way that maximizes utility while also minimizing the chances of data looking like the original data (hence increasing the confusion aspect)
 
-But there is still a possibility of the synthetic data presenting exact clones of the original datapoints when overfitted while modelling. We need to be able to catch the situations
+But there is still a possibility of the synthetic data presenting exact clones of the original data points when overfitted while modelling. We need to be able to catch the situations
 
 But what about situations where a synthetic datapoint is x% similar? (x: 0-99). The problem with this approach would mean we need to set thresholds pertaining to every situation. We overcome this problem by bringing the problem down to a relative scale within the dataset, by comparing External and Internal Similarity to assess the level of confusion as a binary variable.
 
 #### External Similarity[¶](#External-Similarity)
 
-For every datapoint in the original dataset, we would like to see how similar datapoints in the synthetic dataset are using distance/similarity metrics. For our analysis, we primarily use Euclidean distance after one-hot encoding.
+For every datapoint in the original dataset, we would like to see how similar data points in the synthetic dataset are using distance/similarity metrics. For our analysis, we primarily use Euclidean distance after one-hot encoding.
 
 For every data point in the Original Dataset, we need to look at what records in the synthetic dataset are the most similar. This is the idea of ‘External Similarity’.
 
 Let’s say for Person A in Original Dataset: Record 1 in synthetic dataset is 100% similar. This means that our synthetic data generation process has been practically useless for this user’s privacy. The bad actor can still completely leverage the information in the synthetic data to find this user and mine information.
 
-![image-20200416230903354](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416230903354.png)
+![image-20200416230903354](Images\image-20200416230903354.png)
+
+
 
 But we can observe Record 3 is only 5% similar, the chances of a bad actor using Record 3 to find Person A is extremely low.
 
 But let’s now look at Record 3. We have an 80% similarity. Intuitively we may think this record is risky for us. But how do we draw a threshold to say what constitutes a risky data point and not? Is it really a risky data point, rather?
 
-![image-20200416230850252](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416230850252.png)
+![image-20200416230850252](Images\image-20200416230850252.png)
 
 In this example you can see that although Person A is 80% similar with Record 2; We can also note that Person A is 90% similar to Person D. This is the idea of ‘Internal Similarity’
 
@@ -191,7 +241,7 @@ What this essentially means is there is a higher chance of connecting Person A w
 
 Let’s now look at the counter-scenario:
 
-![image-20200416230826106](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416230826106.png)
+![image-20200416230826106](Images\image-20200416230826106.png)
 
 Now we can see the closest resemblance to A inside the Original Dataset is D again, but they are only 10% similar. So that means Person A is already a stand-out unique record. On top of this, our Synthetic Dataset Record 2 is now 80% similar. So when a bad actor gets access to Record 2, there is a high chance they can connect it with Person A and nobody else without any confusion. We need to avoid these scenarios.
 
@@ -207,9 +257,9 @@ A Privacy at Risk value of 6% does not mean 6% of the records are exposed to bad
 
 ### Distance / Similarity Metrics
 
-*Determining which synthetic data records are similar to the original dataset*
+Determining which synthetic data records are similar to the original dataset
 
-### **1. Personal Information Dataset: A dataset that consists of one row per person**
+#### **1. Personal Information Dataset: A dataset that consists of one row per person**
 
 In this case, one record constitutes a single real person (as in our examples) and one person has only one record in the table.
 
@@ -223,7 +273,7 @@ There are a number of Distance Metrics to choose from - Euclidean, Manhattan, Go
 
 A lower value of Euclidean Distance means a higher degree of similarity and vice versa.
 
-![image-20200416231003260](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416231003260.png)
+![image-20200416231003260](Images\image-20200416231003260.png)
 
 We go about computing the distance between every single datapoint in the Original Dataset with every other point in the Synthetic Dataset.
 
@@ -243,7 +293,7 @@ But defining 'close' is subjective. A simple approach would be to use n=1 ie. on
 
 There's always an option to extend this into a radius of close people. By setting n=5, we can always look at the closest 5 people in Original and Synthetic datasets to achieve an idea of how close are records on average.
 
-![image-20200416231031475](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416231031475.png)
+![image-20200416231031475](Images\image-20200416231031475.png)
 
 #### Feature Sensitivity - Weighted Distance Metrics
 
@@ -253,7 +303,7 @@ In our scenario, we are dealing with Mortality information of Patients in ICU Wa
 
 Hence, we might modify the Euclidean Distance to add a lower weight for features of Gender, Age and Ethnicity. When we add lower weights for highly sensitive fields, we report higher similarity and we will be better able to catch risky situations often.
 
-![image-20200416231056357](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416231056357.png)
+![image-20200416231056357](Images\image-20200416231056357.png)
 
 ### 2. Multiple Records per User (Patient Journey Scenario)
 
@@ -264,21 +314,6 @@ In this scenario, when we compare a single record with every other record in the
 Hence the solution is to only look at records belonging to other users / patients in our use case. We use the Patient ID information to determine which records belong to which user. Hence:
 
 ***Internal Similarity is the distance of a given datapoint to every other datapoint belonging to a different user.\***
-
-
-
-## Synthetic Data Generation
-
-This method is the state of the art in reducing the reidentification risk. As we observed earlier, Data anonymization if effective but reduces the utility, Differential privacy adds small noise but has very bad model compatibility. However, Synthetic data, can be tuned to add privacy without losing either the utility, neither exposing privacy of individual data points.  As the  data doesn't represent any real entity, the disclosure of sensitive private data is eliminated. If the information available in the released synthetic data matches with any real entity participated in the original data then it is purely a co-incidence which gives individuals plausible deniability
-
-A synthetic dataset is a repository of data that is generated programmatically. 
-
-- It can be numerical, binary, or categorical (ordinal or non-ordinal),
-- The **number of features and length of the dataset** should be arbitrary
-- It should preferably be **random** and the user should be able to choose a wide variety of **statistical distribution** to base this data upon i.e. the underlying **random process can be precisely controlled and tuned**,
-- If it is used for classification algorithms, then the **degree of class separation** should be controllable to make the learning problem easy or hard,
-- **Random noise** can be interjected in a controllable manner
-- For a regression problem, a complex, **non-linear generative process** can be used for sourcing the data
 
 
 
@@ -513,7 +548,9 @@ The final data has 116354 rows and 27 columns.
 #### Final data includes
 
 - <b> Level of data:</b> Each instance in the final data set is unique admission for each patient and is defined by concatination of 'SUBJECT_ID' and 'HADM_ID' to form 'final_id'
+
 - <b> Target Variables:</b> 'LOS' (length of stay) is used as target variable
+
 - <b> Predictor variables:</b> 18 columns of different diagnosis category are used as predictor varibales.
       These 18 categories are:
       "certain conditions originating in the perinatal period"                      
@@ -535,7 +572,10 @@ The final data has 116354 rows and 27 columns.
       "mental disorders",                                                     
       "neoplasms" and                                                            
       "symptoms, signs, and ill-defined conditions".
-- <b> Other descriptive variables:</b> "ADMISSION_TYPE", "INSURANCE", "ETHNICITY", "HOSPITAL_EXPIRE_FLAG", "GENDER" and "EXPIRE_FLAG"
+  
+- <b> Other descriptive variables:</b> 
+  
+  "ADMISSION_TYPE", "INSURANCE", "ETHNICITY", "HOSPITAL_EXPIRE_FLAG", "GENDER" and "EXPIRE_FLAG"
        
 
 **Code (data wrangling performed in R)**
@@ -793,7 +833,7 @@ mortality.groupby('HOSPITAL_EXPIRE_FLAG').size().plot.bar()
 plt.show()
 ```
 
-<img src="C:/Users/pmven/Downloads/drive-download-20200417T183944Z-001/output_22_0.png" alt="png" style="zoom:150%;" />
+<img src="Images/output_22_0.png" alt="png" style="zoom:150%;" />
 
 
 
@@ -802,7 +842,7 @@ mortality.groupby('GENDER').size().plot.bar()
 plt.show()
 ```
 
-<img src="C:/Users/pmven/Downloads/drive-download-20200417T183944Z-001/output_23_0.png" alt="png" style="zoom:150%;" />
+<img src="Images/output_23_0.png" alt="png" style="zoom:150%;" />
 
 
 
@@ -811,7 +851,7 @@ mortality.groupby('MARITAL_STATUS').size().plot.bar()
 plt.show()
 ```
 
-<img src="C:/Users/pmven/Downloads/drive-download-20200417T183944Z-001/output_24_0.png" alt="png" style="zoom:150%;" />
+<img src="Images/output_24_0.png" alt="png" style="zoom:150%;" />
 
 
 
@@ -820,7 +860,7 @@ mortality.groupby('ADMISSION_TYPE').size().plot.bar()
 plt.show()
 ```
 
-<img src="C:/Users/pmven/Downloads/drive-download-20200417T183944Z-001/output_25_0.png" alt="png" style="zoom:150%;" />
+<img src="Images/output_25_0.png" alt="png" style="zoom:150%;" />
 
 
 
@@ -829,7 +869,7 @@ mortality.groupby('NUMLABEVENTS').size().plot.hist(bins=50)
 plt.show()
 ```
 
-<img src="C:/Users/pmven/Downloads/drive-download-20200417T183944Z-001/output_26_0.png" alt="png" style="zoom:150%;" />
+<img src="Images/output_26_0.png" alt="png" style="zoom:150%;" />
 
 
 
@@ -1004,161 +1044,6 @@ mortality = mortality.fillna(0)
         vertical-align: middle;
     }
 
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-
-</style>
-
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>SUBJECT_ID</th>
-      <th>HADM_ID</th>
-      <th>ADMISSION_TYPE</th>
-      <th>MARITAL_STATUS</th>
-      <th>ETHNICITY</th>
-      <th>HOSPITAL_EXPIRE_FLAG</th>
-      <th>GENDER</th>
-      <th>NUMCALLOUT</th>
-      <th>NUMCPTEVENTS</th>
-      <th>NUMDIAGNOSIS</th>
-      <th>NUMOUTEVENTS</th>
-      <th>NUMRX</th>
-      <th>NUMPROCEVENTS</th>
-      <th>NUMMICROLABEVENTS</th>
-      <th>NUMPROC</th>
-      <th>NUMTRANSFERS</th>
-      <th>NUMINPUTEVENTS</th>
-      <th>NUMLABEVENTS</th>
-      <th>NUMNOTEVENTS</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>22</td>
-      <td>165315</td>
-      <td>EMERGENCY</td>
-      <td>MARRIED</td>
-      <td>WHITE</td>
-      <td>0</td>
-      <td>F</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>7</td>
-      <td>7.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>3.0</td>
-      <td>2</td>
-      <td>6.0</td>
-      <td>91.0</td>
-      <td>10.0</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>23</td>
-      <td>152223</td>
-      <td>ELECTIVE</td>
-      <td>MARRIED</td>
-      <td>WHITE</td>
-      <td>0</td>
-      <td>M</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>8</td>
-      <td>62.0</td>
-      <td>69.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>7.0</td>
-      <td>4</td>
-      <td>180.0</td>
-      <td>208.0</td>
-      <td>12.0</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>23</td>
-      <td>124321</td>
-      <td>EMERGENCY</td>
-      <td>MARRIED</td>
-      <td>WHITE</td>
-      <td>0</td>
-      <td>M</td>
-      <td>1.0</td>
-      <td>6.0</td>
-      <td>10</td>
-      <td>29.0</td>
-      <td>69.0</td>
-      <td>4.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>5</td>
-      <td>0.0</td>
-      <td>221.0</td>
-      <td>17.0</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>24</td>
-      <td>161859</td>
-      <td>EMERGENCY</td>
-      <td>SINGLE</td>
-      <td>WHITE</td>
-      <td>0</td>
-      <td>M</td>
-      <td>0.0</td>
-      <td>4.0</td>
-      <td>4</td>
-      <td>2.0</td>
-      <td>26.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>6.0</td>
-      <td>3</td>
-      <td>50.0</td>
-      <td>99.0</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>25</td>
-      <td>129635</td>
-      <td>EMERGENCY</td>
-      <td>MARRIED</td>
-      <td>WHITE</td>
-      <td>0</td>
-      <td>M</td>
-      <td>0.0</td>
-      <td>4.0</td>
-      <td>4</td>
-      <td>59.0</td>
-      <td>67.0</td>
-      <td>0.0</td>
-      <td>2.0</td>
-      <td>9.0</td>
-      <td>4</td>
-      <td>483.0</td>
-      <td>315.0</td>
-      <td>20.0</td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
-
-
-
-
 ```python
 #Exporing data
 mortality.to_csv('mortality_full_data.csv',index=False)
@@ -1194,7 +1079,7 @@ plt.show()
 ```
 
 
-![png](C:/Users/pmven/Downloads/Use Cases - Documentation + Code/output_17_0.png)
+![png](Images/output_17_0.png)
 
 
 
@@ -1204,7 +1089,7 @@ plt.show()
 ```
 
 
-![png](C:/Users/pmven/Downloads/Use Cases - Documentation + Code/output_18_0.png)
+![png](Images/output_18_0.png)
 
 
 
@@ -1214,7 +1099,7 @@ plt.show()
 ```
 
 
-![png](C:/Users/pmven/Downloads/Use Cases - Documentation + Code/output_19_0.png)
+![png](Images/output_19_0.png)
 
 
 
@@ -1224,7 +1109,7 @@ plt.show()
 ```
 
 
-![png](C:/Users/pmven/Downloads/Use Cases - Documentation + Code/output_20_0.png)
+![png](Images/output_20_0.png)
 
 
 
@@ -1234,7 +1119,7 @@ plt.show()
 ```
 
 
-![png](C:/Users/pmven/Downloads/Use Cases - Documentation + Code/output_21_0.png)
+![png](Images/output_21_0.png)
 
 
 
@@ -1274,11 +1159,15 @@ mortality.dtypes
 
 ## Scalability Tests - WIP
 
-### Implementation Overview
+
 
 In this section we check how the execution time increases when the data size increases for the two algorithms TGAN and CTGAN. 
 
-Training time seems to be the most time consuming point for both the algorithms. We modify the input data in following ways to get a sense of 
+When testing both the modules, the most time consuming part of the process seems to be the training time for e TGAN and CTGAN algorithms. This is understandable as GANS are basically two neural networks who are competing against each other to outdo the other. This back and forth, as well as the backpropagation to adjust the weights requires a lot of time and resources and we wanted to understand the exact time taken by these in case we wanted to scale them for future applications.  
+
+We approach testing these algorithms in the following way. We have two data types we are working with, mainly Continuous and categorical datasets. We want to record execution times for both of these types of columns. We also want to observe how the training time varies with increasing number of rows and columns. 
+
+We take a two datasets both having 100,000 rows and 25 columns. One dataset has all Categorical columns and one of them has only numeric columns. We want to vary the number of rows and columns and time the algorithm to check the execution time for both the algorithms. 
 
 
 
@@ -1322,8 +1211,6 @@ Increasing Number of columns
 
 To calculate the similarity between two tables, our methodology transfers the problem into calculating how different the synthetic data generated by GAN algorithm is from the original data. The smaller the difference between two data sets, the more similar they are with each other. In this methodology, the similarity between the synthetic data and original data will be evaluated in two perspectives: the corresponding columns and the relationships between all columns in each tables. The diagram of the metrics is shown below:
 
-![Blank Diagram](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/diagram.png)
-
 ### Overview of Datasets and results
 
 Original datasets:
@@ -1348,13 +1235,13 @@ For the probability distribution of continuous variable:
 
 (A **continuous random variable** is defined as one which takes an infinite number of possible values.)
 
-![kl - conti](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/kl - conti.PNG)
+![kl - conti](Images/kl - conti.PNG)
 
 For the probability distribution of discrete variable:
 
 (A **discrete random variable** is defined as one which may take on only a countable number of distinct values and thus can be quantified.)
 
-![kl - discrete](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/kl - discrete.PNG)
+![kl - discrete](Images/kl - discrete.PNG)
 
 KL divergence is not symmetric, which means that how different two distributions compared to each other is usually not the same. In this case, KL divergence would be used to calculate how different the synthetic data generated is from the original data. The intuition for KL divergence score is that when the probability for an event from p is large, but the probability for the same event in q is small, then it would result in a large divergence.
 
@@ -1382,7 +1269,7 @@ Considering the special property of continuous data, we propose using cosine sim
 
 Cosine similarity is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them. The formula referenced from wiki page is shown below, where A and B in our case is the array of frequency probabilities of each unique value in the synthetic column and original column respectively:
 
-![cosine_sim](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/cosine_sim.PNG)
+![cosine_sim](Images/cosine_sim.PNG)
 
 
 
@@ -1402,13 +1289,13 @@ For continuous columns:
 
 KL divergence and frequency distribution of "insurance" pair-columns on **POC dataset** generated by **tGAN**:
 
-![kl - cat](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/kl - discrete.PNG)
+![kl - cat](Images/kl - discrete.PNG)
 
 
 
 KL divergence and frequency distribution of "insurance" pair-columns on **POC dataset** generated by **ctGAN**:
 
-![cat - ctganPOC](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/cat - ctganPOC.PNG)
+![cat - ctganPOC](Images/cat - ctganPOC.PNG)
 
 
 
@@ -1420,11 +1307,11 @@ KL divergence and frequency distribution of "insurance" pair-columns on **POC da
 
 KL-divergence score and distributions of 'Length of Stay' pair-columns on dataset generated by **tGAN**:
 
-![num - tganPOC](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/num - tganPOC.PNG)
+![num - tganPOC](Images/num - tganPOC.PNG)
 
 KL-divergence score and distributions of 'Length of Stay' pair-columns on dataset generated by **ctGAN**:
 
-![num - ctganPOC](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/num - ctganPOC.PNG)
+![num - ctganPOC](Images/num - ctganPOC.PNG)
 
 
 
@@ -1529,11 +1416,11 @@ Step 4: Visualize the results of PCA with two scatter plots
 
 t-SNE visual result using 5-dim latent representation from autoencoder on **POC dataset** generated by **tGAN**:
 
-![tsne - tgan400](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/tsne - tganPOC.PNG)
+![tsne - tgan400](Images/tsne - tganPOC.PNG)
 
 PCA visual result using 5-dim latent representation from autoencoder on **POC dataset** generated by **tGAN**:
 
-![pca - tgan400](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/pca - tganPOC.PNG)
+![pca - tgan400](Images/pca - tganPOC.PNG)
 
 
 
@@ -1541,11 +1428,11 @@ PCA visual result using 5-dim latent representation from autoencoder on **POC da
 
 t-SNE visual result using 5-dim latent representation from autoencoder on **POC dataset** generated by **ctGAN**:
 
-![tsne - ctgan382](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/tsne - ctganPOC.PNG)
+![tsne - ctgan382](Images/tsne - ctganPOC.PNG)
 
 PCA visual result using 5-dim latent representation from autoencoder on **POC dataset** generated by **ctGAN**:
 
-![pca - ctgan382](C:/Users/pmven/Google Drive/MSBA Coursework/MSBA/6510 Optum/Synthetic Data Methodology/Synthetic-Tabular-Data-Generation/Statistical_similarity_v1/pca - ctganPOC.PNG)
+![pca - ctgan382](Images/pca - ctganPOC.PNG)
 
 
 
@@ -1604,13 +1491,13 @@ This use case is inspired by Kaggle kernel (reference below) where one can predi
 
 **Original Data**
 
-![image-20200416231242262](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416231242262.png)
+![image-20200416231242262](Images\image-20200416231242262.png)
 
 
 
 **TGAN Data**
 
-![image-20200416231307647](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416231307647.png)
+![image-20200416231307647](Images\image-20200416231307647.png)
 
 ```python
 tgan = tgan.apply(lambda x: round(x) if x.name in ['NUMCALLOUT', 'NUMCPTEVENTS', 'NUMDIAGNOSIS', 'NUMOUTEVENTS', 'NUMRX',
@@ -1756,7 +1643,7 @@ def estimatePAR(original_df, synth_df, top_n, original_uid = None, verbose=0 ):
     df_d['closer'] = df_d.within >= df_d.synthetic
     
     #Lift measures the increase in Risk as a ratio of Internal Distance / External Distance. A Lift < 1 means not Risky. 
-    #Higher values of Lift mean those datapoints in Original Dataset are at a risk of being re-identified
+    #Higher values of Lift mean those data points in Original Dataset are at a risk of being re-identified
     df_d['lift'] = df_d.within / df_d.synthetic
     
     #Report all the At Risk IDs in Original Dataset
@@ -1795,7 +1682,7 @@ len(atrisk)
 
 Here we can see the results. The Privacy At Risk value for the synthetic data generation turns out to be 6.2%. This means that conservatively, 6.2% ie 3623 of the people/records in Original Dataset can potentially be re-identified back to the original information using our synthetic dataset. Hence, the objective always would be to reduce the Privacy At Risk value while maximizing utility.
 
-We can also observe the AtRisk variable. This gives us the list of Original Datapoints/People that can be potentially exposed based on the PaR calculation. We leverage this later to reduce the PaR for the process.
+We can also observe the AtRisk variable. This gives us the list of Original data points/People that can be potentially exposed based on the PaR calculation. We leverage this later to reduce the PaR for the process.
 
 **Finding the Sensitive Columns**
 
@@ -1805,7 +1692,7 @@ Users of a dataset often have an understanding of which columns are vulnerable t
 results2, atrisk2, par2, time2 = estimatePAR(original_df, synth_df, 1, original_uid=None, verbose=1)
 ```
 
-![image-20200416231722431](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416231722431.png)
+![image-20200416231722431](Images\image-20200416231722431.png)
 
 
 
@@ -1838,7 +1725,7 @@ sens_df.sort_values(by="sensitivity_lift", ascending=False)
 
 
 
-![image-20200416231747354](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416231747354.png)
+![image-20200416231747354](Images\image-20200416231747354.png)
 
 **Interpreting the Sensitivity Lift Scores**
 
@@ -1852,16 +1739,16 @@ Given that we know including fields such as Gender, Marital Status, Number of Di
 
 **Removing At Risk points**
 
-Once we have understood which original datapoints are at risk, we can act on it by removing the synthetic data records that can potentially expose these points. We have access to the At Risk data points from the 'estimatePAR' function.
+Once we have understood which original data points are at risk, we can act on it by removing the synthetic data records that can potentially expose these points. We have access to the At Risk data points from the 'estimatePAR' function.
 
-**Edge Case: One original person/record can have multiple synthetic datapoints very close to it** We deal with this scenario by looking at all the synthetic datapoints that are closer to the original datapoint that the closest Within Distance for that datapoint (ie. Distance of Closest Other Original Record). We then remove all datapoints associated with the Risky Datapoints.
+**Edge Case: One original person/record can have multiple synthetic data points very close to it** We deal with this scenario by looking at all the synthetic data points that are closer to the original datapoint that the closest Within Distance for that datapoint (ie. Distance of Closest Other Original Record). We then remove all data points associated with the Risky data points.
 
 ```PYTHON
 results = pd.read_csv('results-tgan.csv')
 results.head()
 ```
 
-![image-20200416231824421](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416231824421.png)
+![image-20200416231824421](Images\image-20200416231824421.png)
 
 ```PYTHON
 atrisk = pd.read_csv('results-tgan-atrisk.csv')['atrisk'].values
@@ -1910,7 +1797,7 @@ def removeRisk(original_df, synth_df, atrisk, top_remove, multipleCloseFlag=Fals
 removeRisk(original_df, synth_df, atrisk, 100, True, withinDistances
 ```
 
-![image-20200416232037942](C:\Users\pmven\AppData\Roaming\Typora\typora-user-images\image-20200416232037942.png)
+![image-20200416232037942](Images\image-20200416232037942.png)
 
 We can see that PaR has now decreased to 0%! This is because we set the top_remove percent to be 100% ie. Remove all synthetic datapoints associated with the original records put at risk. But zero Privacy Risk might not always mean good for us.
 
@@ -1918,13 +1805,13 @@ We can see that PaR has now decreased to 0%! This is because we set the top_remo
 
 #### Tradeoff between Utility and Privacy
 
-There is always a tradeoff whenever we remove datapoints from the synthetic datapoints. At the cost of improving the Privacy, we will sacrifice some utility with respect to the dataset. We can experiment with the top_remove parameter, which decides what % of the Risky Datapoints will be dealt with - We can observe the new PaR values on de-exposing 10% of Risky Datapoints, 50% of Risky Datapoints and so on.
+There is always a tradeoff whenever we remove data points from the synthetic data points. At the cost of improving the Privacy, we will sacrifice some utility with respect to the dataset. We can experiment with the top_remove parameter, which decides what % of the Risky Data points will be dealt with - We can observe the new PaR values on de-exposing 10% of Risky Data points, 50% of Risky Data points and so on.
 
 An understanding of what is the accepted level of Privacy and Utility is required to make decisions here on which synthetic data generation process works best for the situation.
 
 #### Using Lift values to remove data points
 
-Another useful metric to base the decision of removing synthetic datapoints can be based on the sensitivity_lift parameter. This is a ratio of the Within Distance and the External Distance. A higher ratio means a higher risk of a certain datapoint being exposed. This requires intervention from the stakeholders as to what should be the right threshold ie. De-expose original datapoints having a Sensitivity Lift value above 2
+Another useful metric to base the decision of removing synthetic data points can be based on the sensitivity_lift parameter. This is a ratio of the Within Distance and the External Distance. A higher ratio means a higher risk of a certain datapoint being exposed. This requires intervention from the stakeholders as to what should be the right threshold ie. De-expose original data points having a Sensitivity Lift value above 2
 
 #### Scalability of the Module
 
@@ -1942,7 +1829,7 @@ This is the most time-consuming module. The Order of the runSensitivityAnalysis 
 
 Without handling for the Patient Journey use case, the Feature Sensitivity Analysis will on average run for about 6 hours. While handling the edge case, the time to run quickly jumps up to 5.5 days.
 
-**Removal of Risky Datapoints**
+**Removal of Risky data points**
 
 This is comparable to the Privacy At Risk Estimation, as we have one simple cross-join on a subset of the data and a Privacy At Risk Estimation at the end to assess the improvement. Time to run the module is comparable to PaR Estimation.
 
@@ -1962,9 +1849,25 @@ By connecting the two modules, we will be able to run multiple iterations to und
 
 ## Model Compatibility
 
-**Use Case 2 - Mortality Prediction**
+### Use Case 2 - Mortality Prediction
 
-Importing required libraries and csv data for use case 2 (mortality prediction)
+#### Code
+
+1. Importing required libraries and csv data for use case 2 (mortality prediction): There are 6 main libraries required to run this module. It includes pandas, sklearn, keras (Neural Network), scikitplot, matplotlib, and xgboost. We are using data set created under <b> Use case </b> section for Use case 2 - Mortality prediction.
+2. Filter data and one hot encoding: Data contains fields like SUBJECT_ID and HADM_ID which are unique to each rows and doesn't contribute towards predicting the mortality. Also, we have columns like ETHNICITY and MARITAL_STATUS which are also not good predictors and thus can be removed. After filtering these columns, we need to one hot encod remaining ctaegorical columns like ADMISSION_TYPE and GENDER. 
+3. Startified sampling for train test split: HOSPITAL_EXPIRE_FLAG is our target variable and is not balanced. The imbalance ratio is 10:1 i.e. there are 10 non expired patients corresponding to each expired patient in dataset. In order to account for this imabalnce and make sure this ratio is maintained in train and test, we used stratified sampling
+4. Generate synthetic data: Post splitting dataset into train and test, we need to generate synthetic data using original train data. This task will be perfomed using TGAN and CTGAN in separate script. We will simply read the synthetic data generated by GAN algorithms in this script.
+5. Data correction: The data generated by GAN algorithm treat numeric columns as continous columns rather than only integer values. As it try to replicate the distribution of data, it generate decimal values like 2.45 and also negative values like -2 for these numeric columns. In our use case, we can have only integer values and thud we need to corret data before building models.
+6. Model fit function: Function created to train the model and predict using test data
+7. Standardize and Hyperparameter tuning: Before implementing machine learning algorithms, we need to standardize data to bring different predictor variables to same scale. This is done to reduce bias caused by variables with high range as compared to other variables. Post which we implemneted Logistic Regression, XGBoost and Neural Network (Multi Layer Perceptron), along with hyperparamter tuning using 5-fold cross validation to select best hyperparamters for model. Also, algorithms are tuned in a way to account for imbalanced data using paramters within function. For detailed understanding , refer to official sklearn documentation. Example Logistic Regression function under sklearn contain parameter for 'class_weight' which can be used to specify imbalanced data.
+   - Original data
+   - TGAN synthetic data
+   - CTGAN synthetic data
+8. Compare metrics: There are number of metrics which can be used to compare the performance of classification models. We are reporting testing accuracy, precision, recall, f1-score and AUC-ROC. However, in case of mortality prediction, we want to make sure we predict patients who are going to die and save lives. So recall for binary class 1 (indicating death) is of utmost importance here. The hyperparameters are also tuned to increase the recall of models.
+
+#### 1. Importing required libraries and csv data for use case 2 (mortality prediction)
+
+Need to first install and then import libraries. There are 6 main libraries required to run this module. It includes pandas, sklearn, keras (Neural Network), scikitplot, matplotlib, and xgboost. We are using data set created under <b> Use case </b> section for Use case 2 - Mortality prediction.
 
 
 ```python
@@ -1985,6 +1888,7 @@ import pandas as pd
 import warnings
 from keras import models, regularizers, layers, optimizers, losses
 from keras.wrappers.scikit_learn import KerasClassifier
+import tensorflow as tf
 warnings.filterwarnings('ignore')
 ```
 
@@ -1993,7 +1897,7 @@ warnings.filterwarnings('ignore')
 mortality= pd.read_csv("mortality_full_data.csv")
 ```
 
-**2. One hot encoding**
+#### 2. One hot encoding
 
 We don't need SUBJECT_ID and HADM_ID as they define the level of data and are unique for each row. We can remove them and other columns which cannot impact the mortality of patient. Example ETHNICITY and MAIRTAL_STATUS have no influence on mortality and can be removed.
 
@@ -2002,30 +1906,11 @@ We don't need SUBJECT_ID and HADM_ID as they define the level of data and are un
 #One Hot encoding
 mortality_pred=mortality.drop(columns=['SUBJECT_ID','HADM_ID','ETHNICITY','MARITAL_STATUS'])
 mortality_pred=pd.get_dummies(mortality_pred,prefix=['ADMISSION_TYPE','GENDER'])
-mortality_pred.head()
 ```
 
+#### 3. Stratified sampling for train test split
 
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-    
-    .dataframe thead th {
-        text-align: right;
-    }
-
-
-
-**3. Stratified sampling for train test split**
+HOSPITAL_EXPIRE_FLAG is our target variable and is not balanced. The imbalance ratio is 10:1 i.e. there are 10 non expired patients corresponding to each expired patient in dataset. In order to account for this imabalnce and make sure this ratio is maintained in train and test, we used stratified sampling
 
 
 ```python
@@ -2034,11 +1919,12 @@ plt.show()
 ```
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_8_0.png)
+![png](Images/output_9_0.png)
 
 
 
 ```python
+# Split data using target variable
 train, test = train_test_split(mortality_pred, test_size=0.20, random_state=42,stratify=mortality_pred['HOSPITAL_EXPIRE_FLAG'])
 ```
 
@@ -2049,7 +1935,7 @@ plt.show()
 ```
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_10_0.png)
+![png](Images/output_11_0.png)
 
 
 
@@ -2059,16 +1945,17 @@ plt.show()
 ```
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_11_0.png)
+![png](Images/output_12_0.png)
 
 
 
 ```python
+# Writing csv files to disk
 train.to_csv('mortality_train.csv',index=False)
 test.to_csv('mortality_test.csv',index=False)
 ```
 
-**4. Generate synthetic data**
+#### 4. Generate synthetic data
 
 After splitting data set into train and test, we need to generate synthetic data using train data set. We used TGAN and CTGAN for generating synthetic data and will use them in following code to build models.
 
@@ -2081,7 +1968,7 @@ train_tgan=pd.read_csv("mortality_train_tgan.csv")
 train_ctgan=pd.read_csv("mortality_train_ctgan.csv")
 ```
 
-**5. Data Correction**
+#### 5. Data Correction
 
 The columns like NUMDIAGNOSIS, NUMRX, etc. consist of number of interactions and are present as integer values. There is no possibility of these values being continous or decimal like 2.45. At the same time there is no possibilty of negative values as number of prescriptions cannot be negative for any patients. However, the data generated by GAN algorithm treat these columns as continous columns rather than only integer values. As it try to replicate the distribution of data, it generate decimal values like 2.45 and also negative values like -2 for number of prescriptions. In order to maintain consistency between original data and synthetic data, we round the decimal places to nearest integer and also change all negative number to 0.
 
@@ -2098,15 +1985,12 @@ train_tgan.head()
 ```python
 train_ctgan=train_ctgan.round(0)
 train_ctgan[train_ctgan < 0] = 0
+train_ctgan.head()
 ```
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-**6. Model fit function**
+
+#### 6. Model fit function
 
 Function created to predict using various machine learning algorithms for classification problems. It takes following inputs:
 
@@ -2118,7 +2002,7 @@ Function created to predict using various machine learning algorithms for classi
 
 This function will generate following outputs:
 
-1. Training accuracy
+1. Trainig accuracy
 2. Testing accuracy
 3. Classification report: Contains precision, recall and f1-score for both classes
 4. Confusion matrix
@@ -2163,14 +2047,14 @@ def model_fit(alg,x_train,x_test,y_train,y_test):
     skplt.metrics.plot_precision_recall(y_test, y_test_predict_prob_both)
     plt.show()
     # Plot Lift chart
-    skplt.metrics.plot_lift_curve(y_test, y_test_predict_prob_both)
-    plt.show()
+    #skplt.metrics.plot_lift_curve(y_test, y_test_predict_prob_both)
+    #plt.show()
     # Cumulative gain chart
-    skplt.metrics.plot_cumulative_gain(y_test, y_test_predict_prob_both)
-    plt.show()
+    #skplt.metrics.plot_cumulative_gain(y_test, y_test_predict_prob_both)
+    #plt.show()
 ```
 
-**7.1 Training model using original data**
+#### 7.1 Building Models -  Original data
 
 
 ```python
@@ -2186,7 +2070,7 @@ x_test = test[features]
 y_test = test['HOSPITAL_EXPIRE_FLAG']
 ```
 
-**Standardize variables**
+#### Standardize variables
 
 
 ```python
@@ -2198,6 +2082,11 @@ x_test_scaled=scaler.transform(x_test)
 
 #### Logistic Regression
 
+When it comes to explainability and basics of classifications, Logistic Regression is famous algorithm used by data scientists around the world. We are using sklearn package to implement this algorithm and to account for imbalanced class, we used class_weight ='balanced' parameter. In order to identify best hyperparameters, we are performing 5-fold cross validation along with grid search. Cross validation gives best combination of hyperparameters while maximizing the area under the ROC curve. Best combination from grid search is then used as final hyperparameters for the model.
+
+
+Reference: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+
 
 ```python
 param_test ={'C':[0.001, 0.01, 0.1, 1, 10, 100],
@@ -2205,7 +2094,7 @@ param_test ={'C':[0.001, 0.01, 0.1, 1, 10, 100],
 lr=linear_model.LogisticRegression(random_state=10,multi_class='ovr', class_weight='balanced')
 gsearch=GridSearchCV(estimator=lr,
                         param_grid=param_test,
-                        scoring='recall',
+                        scoring='roc_auc',
                         n_jobs=-1,
                         iid=True,
                         cv=5)
@@ -2214,14 +2103,14 @@ print("Best Score:",gsearch.best_score_)
 print("Best parameters:",gsearch.best_params_)
 ```
 
-    Best Score: 0.8281008250142331
-    Best parameters: {'C': 0.001, 'penalty': 'l1'}
+    Best Score: 0.8268811058211591
+    Best parameters: {'C': 100, 'penalty': 'l1'}
 
 
 
 ```python
 # Model with best parameter
-logistic_regression = linear_model.LogisticRegression(C=0.001,penalty='l1',
+logistic_regression = linear_model.LogisticRegression(C=100,penalty='l1',
                                                       multi_class='ovr',
                                                       class_weight='balanced')
 print('Logistic regression model \n')
@@ -2230,44 +2119,36 @@ model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
 
     Logistic regression model 
     
-    Training Accuracy:  0.68
-    Testing Accuracy:  0.67  
+    Training Accuracy:  0.73
+    Testing Accuracy:  0.73  
     
     Classification Report:
                   precision    recall  f1-score   support
     
-               0       0.97      0.66      0.78     10625
-               1       0.21      0.83      0.34      1171
+               0       0.97      0.72      0.83     10625
+               1       0.24      0.80      0.37      1171
     
-        accuracy                           0.67     11796
-       macro avg       0.59      0.74      0.56     11796
-    weighted avg       0.90      0.67      0.74     11796
+        accuracy                           0.73     11796
+       macro avg       0.61      0.76      0.60     11796
+    weighted avg       0.90      0.73      0.78     11796
     
     Confusion Matrix: 
     Actual Predicted
           0     1
-    0  6993  3632
-    1   203   968
-    ROC-AUC:  0.82
+    0  7628  2997
+    1   229   942
+    ROC-AUC:  0.83
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_26_1.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_26_2.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_26_3.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_26_4.png)
+![png](Images/output_27_1.png) ![png](Images/output_27_2.png)
 
 
 #### XGBoost
+
+XGBoost is a decision tree based algorithm which leverages the concept of boosting and regularization to improve the accuracy of model. XGBoost is not present in sklearn package, however it has sklearn based API which can be easily used in python. To account for imbalanced class, we used scale_pos_weight =12 parameter to assign more weight to class with less data because the ratio in which classes are present is 1:12. In order to identify best hyperparameters, we are performing 5-fold cross validation along with grid search. Cross validation gives best combination of hyperparameters while maximizing the area under the ROC curve. Best combination from grid search is then used as final hyperparameters for the model.
+
+Reference: https://xgboost.readthedocs.io/en/latest/python/python_api.html#module-xgboost.sklearn
 
 
 ```python
@@ -2283,7 +2164,7 @@ gsearch=GridSearchCV(estimator=xgb.XGBClassifier(learning_rate =0.1,
                             seed=123,
                             scale_pos_weight=9),
                             param_grid=param_test,
-                            scoring='recall',
+                            scoring='roc_auc',
                             n_jobs=-1,
                             iid=True,
                             cv=5)
@@ -2292,7 +2173,7 @@ print("Best Score:",gsearch.best_score_)
 print("Best parameters:",gsearch.best_params_)
 ```
 
-    Best Score: 0.7597646375955244
+    Best Score: 0.8889800560078044
     Best parameters: {'learning_rate': 0.2, 'max_depth': 4, 'n_estimator': 100}
 
 
@@ -2334,22 +2215,27 @@ model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_29_1.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_29_2.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_29_3.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_29_4.png)
+![png](Images/output_30_1.png) ![png](Images/output_30_2.png)
 
 
 #### Neural Network
+
+Deep Learning is state of the art when it come to machine learning algorithms. We wanted to implement a neural network to evaluate the utility of synthetic data for new age researchers. Th architecture we have used is below:
+
+Input dimension: 18 neurons<br>
+1st Layer: 500 neurons + relu activation function<br>
+2nd Layer: Batch normalization<br>
+3rd Layer: 500 neurons + relu activation function<br>
+4th Layer: Drop out of neurons<br>
+5th Layer: 500 neurons + relu activation function<br>
+6th Layer: Batch normalization<br>
+7th Layer: 500 neurons + relu activation function<br>
+8th Layer: Drop out of neurons<br>
+9th Layer: Sigmoid activation function<br>
+
+The neural network is using binary cross entropy as loss function and is optimized to maximize area under the ROC curve.
+
+Reference: https://keras.io/getting-started/sequential-model-guide/
 
 
 ```python
@@ -2367,7 +2253,7 @@ def nn_model():
     model.add(layers.Dense(1, activation='sigmoid'))
     model.compile(loss='binary_crossentropy',
                       optimizer='adam',
-                      metrics=['accuracy'])
+                      metrics=[tf.keras.metrics.AUC()])
     #model.fit(x_train_scaled, y_train, epochs=50, batch_size=500)
     return model
 ```
@@ -2378,44 +2264,32 @@ NN = KerasClassifier(build_fn=nn_model, epochs=50, batch_size=200, verbose=0, cl
 model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
-    Training Accuracy:  0.86
-    Testing Accuracy:  0.83  
+    Training Accuracy:  0.84
+    Testing Accuracy:  0.81  
     
     Classification Report:
                   precision    recall  f1-score   support
     
-               0       0.97      0.83      0.90     10625
-               1       0.34      0.78      0.47      1171
+               0       0.97      0.81      0.89     10625
+               1       0.32      0.78      0.45      1171
     
-        accuracy                           0.83     11796
-       macro avg       0.65      0.81      0.68     11796
-    weighted avg       0.91      0.83      0.85     11796
+        accuracy                           0.81     11796
+       macro avg       0.64      0.80      0.67     11796
+    weighted avg       0.91      0.81      0.84     11796
     
     Confusion Matrix: 
     Actual Predicted
           0     1
-    0  8820  1805
-    1   257   914
-    ROC-AUC:  0.88
+    0  8657  1968
+    1   261   910
+    ROC-AUC:  0.87
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_32_1.png)
+![png](Images/output_33_1.png) ![png](Images/output_33_2.png)
 
 
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_32_2.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_32_3.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_32_4.png)
-
-
-### Training using TGAN synthetic data
+#### 7.2 Building Models -  TGAN data
 
 
 ```python
@@ -2425,13 +2299,13 @@ features=['NUMCALLOUT', 'NUMCPTEVENTS', 'NUMDIAGNOSIS',
        'NUMNOTEVENTS', 'ADMISSION_TYPE_ELECTIVE', 'ADMISSION_TYPE_EMERGENCY',
        'ADMISSION_TYPE_NEWBORN', 'ADMISSION_TYPE_URGENT', 'GENDER_F',
        'GENDER_M']
-x_train = synthetic_train[features]
-y_train = synthetic_train['HOSPITAL_EXPIRE_FLAG']
+x_train = train_tgan[features]
+y_train = train_tgan['HOSPITAL_EXPIRE_FLAG']
 x_test = test[features]
 y_test = test['HOSPITAL_EXPIRE_FLAG']
 ```
 
-Standardize the variables
+#### Standardize the variables
 
 
 ```python
@@ -2450,7 +2324,7 @@ param_test ={'C':[0.001, 0.01, 0.1, 1, 10, 100],
 lr=linear_model.LogisticRegression(random_state=10,multi_class='ovr', class_weight='balanced')
 gsearch=GridSearchCV(estimator=lr,
                         param_grid=param_test,
-                        scoring='f1',
+                        scoring='roc_auc',
                         n_jobs=-1,
                         iid=True,
                         cv=5)
@@ -2459,14 +2333,14 @@ print("Best Score:",gsearch.best_score_)
 print("Best parameters:",gsearch.best_params_)
 ```
 
-    Best Score: 0.3346118052298829
-    Best parameters: {'C': 1, 'penalty': 'l1'}
+    Best Score: 0.7813205247298578
+    Best parameters: {'C': 0.01, 'penalty': 'l1'}
 
 
 
 ```python
 # Model with best parameter
-logistic_regression = linear_model.LogisticRegression(C=1,penalty='l1',
+logistic_regression = linear_model.LogisticRegression(C=0.01,penalty='l1',
                                                       multi_class='ovr',
                                                      class_weight='balanced')
 print('Logistic regression model \n')
@@ -2476,40 +2350,28 @@ model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
     Logistic regression model 
     
     Training Accuracy:  0.7
-    Testing Accuracy:  0.69  
+    Testing Accuracy:  0.68  
     
     Classification Report:
                   precision    recall  f1-score   support
     
-               0       0.97      0.67      0.80     10625
-               1       0.22      0.82      0.34      1171
+               0       0.97      0.67      0.79     10625
+               1       0.21      0.81      0.34      1171
     
-        accuracy                           0.69     11796
-       macro avg       0.59      0.75      0.57     11796
-    weighted avg       0.90      0.69      0.75     11796
+        accuracy                           0.68     11796
+       macro avg       0.59      0.74      0.57     11796
+    weighted avg       0.90      0.68      0.75     11796
     
     Confusion Matrix: 
     Actual Predicted
           0     1
-    0  7162  3463
-    1   215   956
-    ROC-AUC:  0.82
+    0  7116  3509
+    1   217   954
+    ROC-AUC:  0.81
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_39_1.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_39_2.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_39_3.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_39_4.png)
+![png](Images/output_40_1.png) ![png](Images/output_40_2.png)
 
 
 #### XGBoost
@@ -2528,7 +2390,7 @@ gsearch=GridSearchCV(estimator=xgb.XGBClassifier(learning_rate =0.1,
                             seed=123,
                             scale_pos_weight=12),
                             param_grid=param_test,
-                            scoring='f1',
+                            scoring='roc_auc',
                             n_jobs=-1,
                             iid=True,
                             cv=5)
@@ -2537,8 +2399,8 @@ print("Best Score:",gsearch.best_score_)
 print("Best parameters:",gsearch.best_params_)
 ```
 
-    Best Score: 0.3915058795002811
-    Best parameters: {'learning_rate': 0.2, 'max_depth': 6, 'n_estimator': 100}
+    Best Score: 0.8219386820900801
+    Best parameters: {'learning_rate': 0.2, 'max_depth': 4, 'n_estimator': 100}
 
 
 
@@ -2547,7 +2409,7 @@ print("Best parameters:",gsearch.best_params_)
 xgboost = xgb.XGBClassifier(n_jobs=-1,random_state=123,
                 learning_rate =0.2,
                 n_estimators=100,
-                max_depth=6,
+                max_depth=4,
                 subsample=0.8,
                 colsample_bytree=0.8,
                 scale_pos_weight=12)
@@ -2557,41 +2419,29 @@ model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
 
     XGBoost model 
     
-    Training Accuracy:  0.81
-    Testing Accuracy:  0.74  
+    Training Accuracy:  0.74
+    Testing Accuracy:  0.7  
     
     Classification Report:
                   precision    recall  f1-score   support
     
-               0       0.96      0.74      0.84     10625
-               1       0.24      0.74      0.37      1171
+               0       0.97      0.69      0.81     10625
+               1       0.23      0.83      0.36      1171
     
-        accuracy                           0.74     11796
-       macro avg       0.60      0.74      0.60     11796
-    weighted avg       0.89      0.74      0.79     11796
+        accuracy                           0.70     11796
+       macro avg       0.60      0.76      0.58     11796
+    weighted avg       0.90      0.70      0.76     11796
     
     Confusion Matrix: 
     Actual Predicted
           0     1
-    0  7899  2726
-    1   301   870
-    ROC-AUC:  0.82
+    0  7304  3321
+    1   198   973
+    ROC-AUC:  0.84
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_42_1.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_42_2.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_42_3.png)
-
-
-
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_42_4.png)
+![png](Images/output_43_1.png) ![png](Images/output_43_2.png)
 
 
 #### Neural Network
@@ -2612,7 +2462,7 @@ def nn_model():
     model.add(layers.Dense(1, activation='sigmoid'))
     model.compile(loss='binary_crossentropy',
                       optimizer='adam',
-                      metrics=['accuracy'])
+                      metrics=[tf.keras.metrics.AUC()])
     #model.fit(x_train_scaled, y_train, epochs=50, batch_size=500)
     return model
 ```
@@ -2623,56 +2473,255 @@ NN = KerasClassifier(build_fn=nn_model, epochs=50, batch_size=100, verbose=0, cl
 model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
 ```
 
-    Training Accuracy:  0.76
-    Testing Accuracy:  0.7  
+    Training Accuracy:  0.75
+    Testing Accuracy:  0.69  
     
     Classification Report:
                   precision    recall  f1-score   support
     
-               0       0.97      0.69      0.81     10625
-               1       0.23      0.83      0.36      1171
+               0       0.97      0.67      0.80     10625
+               1       0.22      0.82      0.34      1171
     
-        accuracy                           0.70     11796
-       macro avg       0.60      0.76      0.58     11796
-    weighted avg       0.90      0.70      0.76     11796
+        accuracy                           0.69     11796
+       macro avg       0.59      0.75      0.57     11796
+    weighted avg       0.90      0.69      0.75     11796
     
     Confusion Matrix: 
     Actual Predicted
           0     1
-    0  7333  3292
-    1   203   968
-    ROC-AUC:  0.83
+    0  7148  3477
+    1   208   963
+    ROC-AUC:  0.82
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_45_1.png)
+![png](Images/output_46_1.png) ![png](Images/output_46_2.png)
+
+
+#### 7.3 Building Models -  CTGAN data
+
+
+```python
+features=['NUMCALLOUT', 'NUMCPTEVENTS', 'NUMDIAGNOSIS',
+       'NUMOUTEVENTS', 'NUMRX', 'NUMPROCEVENTS', 'NUMMICROLABEVENTS',
+       'NUMPROC', 'NUMTRANSFERS', 'NUMINPUTEVENTS', 'NUMLABEVENTS',
+       'NUMNOTEVENTS', 'ADMISSION_TYPE_ELECTIVE', 'ADMISSION_TYPE_EMERGENCY',
+       'ADMISSION_TYPE_NEWBORN', 'ADMISSION_TYPE_URGENT', 'GENDER_F',
+       'GENDER_M']
+x_train = train_ctgan[features]
+y_train = train_ctgan['HOSPITAL_EXPIRE_FLAG']
+x_test = test[features]
+y_test = test['HOSPITAL_EXPIRE_FLAG']
+```
+
+#### Standardize variables
+
+
+```python
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train_scaled=scaler.transform(x_train)
+x_test_scaled=scaler.transform(x_test)
+```
+
+#### Logistic Regression
+
+
+```python
+param_test ={'C':[0.001, 0.01, 0.1, 1, 10, 100],
+             'penalty':('l1','l2')}
+lr=linear_model.LogisticRegression(random_state=10,multi_class='ovr', class_weight='balanced')
+gsearch=GridSearchCV(estimator=lr,
+                        param_grid=param_test,
+                        scoring='roc_auc',
+                        n_jobs=-1,
+                        iid=True,
+                        cv=5)
+gsearch.fit(x_train_scaled,y_train)
+print("Best Score:",gsearch.best_score_)
+print("Best parameters:",gsearch.best_params_)
+```
+
+    Best Score: 0.8016729735853085
+    Best parameters: {'C': 0.01, 'penalty': 'l2'}
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_45_2.png)
+```python
+# Model with best parameter
+logistic_regression = linear_model.LogisticRegression(C=0.01,penalty='l2',
+                                                      multi_class='ovr',
+                                                     class_weight='balanced')
+print('Logistic regression model \n')
+model_fit(logistic_regression,x_train_scaled,x_test_scaled,y_train,y_test)
+```
+
+    Logistic regression model 
+    
+    Training Accuracy:  0.7
+    Testing Accuracy:  0.64  
+    
+    Classification Report:
+                  precision    recall  f1-score   support
+    
+               0       0.96      0.62      0.75     10625
+               1       0.19      0.80      0.30      1171
+    
+        accuracy                           0.64     11796
+       macro avg       0.58      0.71      0.53     11796
+    weighted avg       0.89      0.64      0.71     11796
+    
+    Confusion Matrix: 
+    Actual Predicted
+          0     1
+    0  6578  4047
+    1   240   931
+    ROC-AUC:  0.78
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_45_3.png)
+![png](Images/output_53_1.png) ![png](Images/output_53_2.png)
+
+
+#### XGBoost
+
+
+```python
+# Grid Search for best parameters
+param_test = {'max_depth':list(range(4,7,1)),
+                'learning_rate':list(np.arange(0.2,0.4,0.1)),
+                'n_estimator':list(range(100,120,5))}
+gsearch=GridSearchCV(estimator=xgb.XGBClassifier(learning_rate =0.1,
+                            n_estimators=140,
+                            subsample=0.8,
+                            colsample_bytree=0.8,
+                            njobs=-1,
+                            seed=123,
+                            scale_pos_weight=9),
+                            param_grid=param_test,
+                            scoring='roc_auc',
+                            n_jobs=-1,
+                            iid=True,
+                            cv=5)
+gsearch.fit(x_train_scaled,y_train)
+print("Best Score:",gsearch.best_score_)
+print("Best parameters:",gsearch.best_params_)
+```
+
+    Best Score: 0.8273329818422657
+    Best parameters: {'learning_rate': 0.2, 'max_depth': 4, 'n_estimator': 100}
 
 
 
-![png](C:/Users/pmven/Downloads/Model Compatibility - Mortality Prediction/output_45_4.png)
+```python
+# Model with best parameter
+xgboost = xgb.XGBClassifier(n_jobs=-1,random_state=123,
+                learning_rate =0.2,
+                n_estimators=100,
+                max_depth=4,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                scale_pos_weight=12)
+print('XGBoost model \n')
+model_fit(xgboost,x_train_scaled,x_test_scaled,y_train,y_test)
+```
+
+    XGBoost model 
+    
+    Training Accuracy:  0.72
+    Testing Accuracy:  0.67  
+    
+    Classification Report:
+                  precision    recall  f1-score   support
+    
+               0       0.97      0.66      0.78     10625
+               1       0.21      0.82      0.33      1171
+    
+        accuracy                           0.67     11796
+       macro avg       0.59      0.74      0.56     11796
+    weighted avg       0.89      0.67      0.74     11796
+    
+    Confusion Matrix: 
+    Actual Predicted
+          0     1
+    0  6973  3652
+    1   214   957
+    ROC-AUC:  0.82
+
+
+
+![png](Images/output_56_1.png) ![png](Images/output_56_2.png)
+
+
+#### Neural Network
+
+
+```python
+def nn_model():
+    model = models.Sequential()
+    model.add(layers.Dense(500, activation='relu',
+                           input_dim=18))
+    model.add(layers.BatchNormalization())
+    model.add(layers.Dense(500, activation='relu'))
+    model.add(layers.Dropout(0.3))
+    model.add(layers.Dense(500, activation='relu'))
+    model.add(layers.BatchNormalization())
+    model.add(layers.Dense(500, activation='relu'))
+    model.add(layers.Dropout(0.3))
+    model.add(layers.Dense(1, activation='sigmoid'))
+    model.compile(loss='binary_crossentropy', optimizer='adam',
+                      metrics=[tf.keras.metrics.AUC()])
+    return model
+```
+
+
+```python
+NN = KerasClassifier(build_fn=nn_model, epochs=50, batch_size=100, verbose=0, class_weight={0:1,1:12})
+model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
+```
+
+    Training Accuracy:  0.74
+    Testing Accuracy:  0.65  
+    
+    Classification Report:
+                  precision    recall  f1-score   support
+    
+               0       0.96      0.64      0.77     10625
+               1       0.19      0.77      0.31      1171
+    
+        accuracy                           0.65     11796
+       macro avg       0.58      0.71      0.54     11796
+    weighted avg       0.89      0.65      0.72     11796
+    
+    Confusion Matrix: 
+    Actual Predicted
+          0     1
+    0  6797  3828
+    1   267   904
+    ROC-AUC:  0.79
+
+
+
+![png](Images/output_59_1.png) ![png](Images/output_59_2.png)
 
 
 ### Results
 
-| Model | Data | Accuracy | Precision | Recall | F1-score | AUC-ROC |
-| --- | --- | --- | --- | --- | --- | --- |
-| Logistic Regression | Original | 0.67 | 0.21 | 0.83 | 0.34 | 0.82
-| Logistic Regression | TGAN Synthetic | 0.69 | 0.22 | 0.82 | 0.34 | 0.82 |
-| Logistic Regression | CTGAN Synthetic |
-| XGBoost | Original | 0.79 | 0.30 | 0.83 | 0.44 | 0.90
-| XGBoost | TGAN Synthetic | 0.74 | 0.24 | 0.74 | 0.37 | 0.82
-| XGBoost | CTGAN Synthetic | | | |
-| Neural Network | Original | 0.83 | 0.34 | 0.78 | 0.47 | 0.88
-| Neural Network | TGAN Synthetic | 0.70 | 0.23 | 0.83 | 0.36 | 0.83
-| Neural Network | CTGAN Synthetic | | | |
+| Model               | Data            | Accuracy | Precision | Recall | F1-score | AUC-ROC |
+| ------------------- | --------------- | -------- | --------- | ------ | -------- | ------- |
+| Logistic Regression | Original        | 0.73     | 0.24      | 0.80   | 0.37     | 0.83    |
+| Logistic Regression | TGAN Synthetic  | 0.68     | 0.21      | 0.81   | 0.34     | 0.81    |
+| Logistic Regression | CTGAN Synthetic | 0.64     | 0.19      | 0.80   | 0.30     | 0.78    |
+| XGBoost             | Original        | 0.79     | 0.30      | 0.83   | 0.44     | 0.90    |
+| XGBoost             | TGAN Synthetic  | 0.70     | 0.23      | 0.83   | 0.36     | 0.84    |
+| XGBoost             | CTGAN Synthetic | 0.67     | 0.21      | 0.82   | 0.33     | 0.82    |
+| Neural Network      | Original        | 0.81     | 0.32      | 0.78   | 0.45     | 0.87    |
+| Neural Network      | TGAN Synthetic  | 0.69     | 0.22      | 0.82   | 0.34     | 0.82    |
+| Neural Network      | CTGAN Synthetic | 0.65     | 0.19      | 0.77   | 0.31     | 0.79    |
+
+### Conclusion
+
+All models were optimized to improve AUC-ROC metric and since we are predicting whether a patient will expire in single admit or no, we need to focus on recall at the same time. From the above table, we can conclude that there is  difference between AUC-ROC metric for synthetic data for a specific model lies within 9% of original data. Example for Logistic Regression, AUC-ROC value are 0.83 (original), 0.81(TGAN) and 0.78(CTGAN). Moreover the range of AUC-ROC varies a lot among different algorithms like XGBoost ranges between 0.82 to 0.90 whereas Logistic regression ranges between 0.78 to 0.83. So the impact of selecting algorithm is significant as compared to original vs synthetic data. Thus we can assume that any models generated by academic researchers or 3rd parties using synthetic data will perform comparatively on original data. There might be a need to fine tune or re-train the final model to deploy on original data but the heavy lifting can be done by stakeholders with synthetic data.
 
 
 
@@ -2682,9 +2731,20 @@ model_fit(NN,x_train_scaled,x_test_scaled,y_train,y_test)
 
 ## Generating Larger Datasets from Small Samples
 
+One of the applications of generating datasets can be to generate larger datasets from smaller one. We have already observed before that the synthetically generated data from TGAN and CTGAN is statistically similar to the original datasets. One can take advantage of this to generate datasets that are larger than the original datasets for applications such as training a Neural network which inherently requires large amounts of data, improving efficiency of an existing models as well. But before generating this dataset, a few things should be taken into consideration.
+
+- Statistical Similarity has only been checked on datasets that are of the same size as the original data. Before generating larger datasets, the same statistical similarity tests should be performed on larger datasets of the desired size. 
+- Generating Synthetic datasets work by the algorithm calculating the distribution of a column, and then generating data by sampling form the distribution. One thing to note here is that as we draw larger number of samples from the original data, there is a higher chance that the model might sample the original observation from the dataset. Before generating larger dataset, the privacy module should also be tested on the dataset to make sure that this does not happen or such samples should be excluded from the result.
+
 ## Privacy Tuning
 
 ## Modifying TGAN to create a new module
+
+TGAN and CTGAN are readily available modules and we have presented a comprehensive understanding, working and data generation analysis for both of these. however, as discussed above, there exists other GAN algorithms such as DP-GAN and PATE-GAN which have inbuilt statistical similarity and privacy measures that are desirable. However for these algorithms, there is no open source implementation available for tabular data, and actually creating these modules were out of scope.
+
+One of the next steps could be to take existing TGAN module and modify the code to add the privacy and statistical similarity modules from CTGAN and DPGAN. The GAN algorithm works by first the discriminator learning to distinguish between real and fake datasets and then the generator adjusting itself to trying to beat the discriminator's algorithm. If privacy and statistical similarity modules are already added in the Discriminator, then the generator will produce data adhering to those requirements. One place to modify these should be the loss function of the generator and the discriminator. 
+
+
 
 ## Model Efficiency
 

@@ -1486,17 +1486,17 @@ We take a two datasets both having 100,000 rows and 25 columns. One dataset has 
 
 ##### **Categorical Data**
 
-​											Increasing Number of Rows    																				Increasing Number of columns
+​								Increasing Number of Rows    											    Increasing Number of columns
 
-<img src="Images/TGAN_Categorical_Rows.png" style="zoom:75%;" />  <img src="Images/TGAN_Categorical_Cols.png" style="zoom:75%;" />
+<img src="Images/TGAN_Categorical_Rows.png" style="zoom:60%;" />  <img src="Images/TGAN_Categorical_Cols.png" style="zoom:60%;" />
 
 
 
 ##### **Continuous Data**
 
- 										Increasing Number of Rows 																			Increasing Number of columns
+​								Increasing Number of Rows 										           Increasing Number of columns
 
-<img src="Images/TGAN_Continuous_Rows.png" style="zoom:75%;" /> <img src="Images/TGAN_Continuous_Cols.png" style="zoom:75%;" />
+<img src="Images/TGAN_Continuous_Rows.png" style="zoom:60%;" /> <img src="Images/TGAN_Continuous_Cols.png" style="zoom:60%;" />
 
 
 
@@ -1504,17 +1504,17 @@ We take a two datasets both having 100,000 rows and 25 columns. One dataset has 
 
 ##### **Categorical Data**
 
-​										Increasing Number of Rows																					Increasing Number of columns
+​								Increasing Number of Rows														Increasing Number of columns
 
-<img src="Images/CTGAN_Categorical_Rows.png" style="zoom:75%;" /> <img src="Images/CTGAN_Categorical_Columns.png" style="zoom:75%;" />
+<img src="Images/CTGAN_Categorical_Rows.png" style="zoom:60%;" /> <img src="Images/CTGAN_Categorical_Columns.png" style="zoom:60%;" />
 
 
 
 ##### **Numerical Data**
 
-​										Increasing Number of Rows																						Increasing Number of columns
+​							 Increasing Number of Rows														Increasing Number of columns
 
-<img src="Images/CTGAN_Continuous_Rows.png" style="zoom:75%;" /> <img src="Images/CTGAN_Continuous_Cols.png" style="zoom:75%;" />
+<img src="Images/CTGAN_Continuous_Rows.png" style="zoom:60%;" /> <img src="Images/CTGAN_Continuous_Cols.png" style="zoom:60%;" />
 
 
 

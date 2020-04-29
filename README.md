@@ -2,7 +2,7 @@
 
 
 
-# Leveraging GANs to Generate Tabular Synthetic Data
+# Generating Tabular Synthetic Data
 
 
 

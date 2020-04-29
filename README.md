@@ -6,19 +6,6 @@
 
 
 
-<center>
-    <b>A Project by:</b><br><br>
-    <b>Optum</b><br>
-    Jayanthi Suryanarayana<br><br>
-    <b>Carlson School of Management</b><br>
-    Sudharshan Ashok<br>
-    Piyush Gupta<br>
-    Olivia Liang<br>
-    Vibhav Pratap Singh<br>
-    Pushkar Vengurlekar<br><br>
-	<b>Advisors:</b><br>
-	Gedas Adomavicius<br>
-    Lee Thomas<br>	
 
 </div>
 
